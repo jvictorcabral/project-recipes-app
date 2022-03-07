@@ -17,14 +17,14 @@ function Footer({ history }) {
       </button>
       <button
         type="button"
-        onClick={ () => history.push('/drinks') }
+        onClick={ () => history.push('/explore') }
         data-testid="explore-bottom-btn"
       >
         <img src={ exploreIcon } alt="explore" />
       </button>
       <button
         type="button"
-        onClick={ () => history.push('/drinks') }
+        onClick={ () => history.push('/food') }
         data-testid="food-bottom-btn"
       >
         <img src={ mealIcon } alt="meal" />
