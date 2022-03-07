@@ -24,7 +24,7 @@ yarn-error.log*
 
 .vscode
 
-
+styles/index.css
 cypress/screenshots/
 cypress/videos/
 cypress/reports
