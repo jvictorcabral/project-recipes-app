@@ -6,7 +6,7 @@ function Login() {
     <div>
       <h1>ola mundo</h1>
     </div>
-  )
+  );
 }
 
 export default connect()(Login);
