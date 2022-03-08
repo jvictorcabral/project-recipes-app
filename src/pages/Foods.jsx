@@ -5,6 +5,7 @@ import fetchMeals from '../services/mealsApi';
 import RecipeCard from '../components/RecipeCard';
 import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
+import Header from '../components/Header';
 
 function Foods({ location: { pathname } }) {
   const [meals, setMeals] = useState([]);
@@ -41,6 +42,7 @@ function Foods({ location: { pathname } }) {
 
   return (
     <div>
+      <Header title="Foods" />
       <CategoryFilters
         pathname={ pathname }
         handleClick={ selectCategory }
