@@ -61,19 +61,6 @@ function Foods({ location: { pathname } }) {
           />
         </Link>
       ))}
-
-      {/* {meals.length === 1 ? (
-        <Redirect to={ `/foods/${meals[0].idMeal}` } />
-      ) : meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
-        <RecipeCard
-          key={ idMeal }
-          img={ strMealThumb }
-          name={ strMeal }
-          index={ index }
-          handleClick={ selectCategory }
-          recipeId={ idMeal }
-        />
-      ))} */}
     </div>
   );
 }
