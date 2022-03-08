@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropType from 'prop-types';
+import { Link } from 'react-router-dom';
 import CategoryFilters from '../components/CategoryFilters';
 import fetchDrinks from '../services/drinksApi';
 import RecipeCard from '../components/RecipeCard';
@@ -49,12 +50,16 @@ function Drinks({ location: { pathname } }) {
         categoryFilter={ categoryFilter }
       />
       {drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
-        <RecipeCard
-          key={ idDrink }
-          img={ strDrinkThumb }
-          name={ strDrink }
-          index={ index }
-        />
+        <Link to={ `${pathname}/${idDrink}` } key={ idDrink }>
+          <RecipeCard
+            key={ idDrink }
+            img={ strDrinkThumb }
+            name={ strDrink }
+            index={ index }
+            recipeId={ idDrink }
+            pathname={ pathname }
+          />
+        </Link>
       ))}
     </div>
   );

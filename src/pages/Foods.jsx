@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropType from 'prop-types';
+import { Link } from 'react-router-dom';
 import CategoryFilters from '../components/CategoryFilters';
 import fetchMeals from '../services/mealsApi';
 import RecipeCard from '../components/RecipeCard';
@@ -49,14 +50,30 @@ function Foods({ location: { pathname } }) {
         categoryFilter={ categoryFilter }
       />
       {meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
+        <Link to={ `${pathname}/${idMeal}` } key={ idMeal }>
+          <RecipeCard
+            img={ strMealThumb }
+            name={ strMeal }
+            index={ index }
+            handleClick={ selectCategory }
+            recipeId={ idMeal }
+            pathname={ pathname }
+          />
+        </Link>
+      ))}
+
+      {/* {meals.length === 1 ? (
+        <Redirect to={ `/foods/${meals[0].idMeal}` } />
+      ) : meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
         <RecipeCard
           key={ idMeal }
           img={ strMealThumb }
           name={ strMeal }
           index={ index }
           handleClick={ selectCategory }
+          recipeId={ idMeal }
         />
-      ))}
+      ))} */}
     </div>
   );
 }
