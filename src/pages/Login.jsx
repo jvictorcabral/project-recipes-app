@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import LoginInput from '../components/LoginInput';
 
 function Login() {
   return (
     <div>
-      <h1>ola mundo</h1>
+      <LoginInput />
     </div>
   );
 }
 
-export default connect()(Login);
+export default Login;
