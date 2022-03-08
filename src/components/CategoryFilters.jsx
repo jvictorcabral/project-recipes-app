@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropType from 'prop-types';
-import fetchCategories from '../services/categories';
+import fetchCategories from '../services/fetchCategories';
 
-function CategoryFilters({ pathname }) {
+function CategoryFilters({ pathname, handleClick }) {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const CATEGORIES_QUANTITY = 5;
@@ -23,6 +23,8 @@ function CategoryFilters({ pathname }) {
           key={ category }
           type="button"
           data-testid={ `${category}-category-filter` }
+          name={ category }
+          onClick={ handleClick }
         >
           {category}
         </button>
@@ -33,6 +35,7 @@ function CategoryFilters({ pathname }) {
 
 CategoryFilters.propTypes = {
   pathname: PropType.string.isRequired,
+  handleClick: PropType.func.isRequired,
 };
 
 export default CategoryFilters;
