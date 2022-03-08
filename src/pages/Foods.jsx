@@ -3,6 +3,7 @@ import PropType from 'prop-types';
 import CategoryFilters from '../components/CategoryFilters';
 import fetchMeals from '../services/mealsApi';
 import RecipeCard from '../components/RecipeCard';
+import Header from '../components/Header';
 
 function Foods({ location: { pathname } }) {
   const [meals, setMeals] = useState([]);
@@ -17,6 +18,7 @@ function Foods({ location: { pathname } }) {
 
   return (
     <div>
+      <Header title="Foods" />
       <CategoryFilters pathname={ pathname } />
       {meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
         <RecipeCard
