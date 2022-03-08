@@ -26,7 +26,7 @@ function Footer({ history }) {
       </button>
       <button
         type="button"
-        onClick={ () => history.push('/food') }
+        onClick={ () => history.push('/foods') }
         data-testid="food-bottom-btn"
         src={ mealIcon }
       >
