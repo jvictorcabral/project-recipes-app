@@ -30,6 +30,15 @@ function CategoryFilters({ pathname, handleClick, categoryFilter }) {
           {category}
         </button>
       ))}
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        name=""
+        onClick={ handleClick }
+        style={ categoryFilter === '' ? { backgroundColor: 'gray' } : {} }
+      >
+        All
+      </button>
     </div>
   );
 }
