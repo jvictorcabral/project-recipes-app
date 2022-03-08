@@ -1,42 +1,72 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import FavoriteButton from '../components/FavoriteButton';
 import ShareButton from '../components/ShareButton';
 import fetchFoodOrDrink from '../services/id';
 
-function RecipeDetails({ math: { params: { id } }, location: { pathname } }) {
+function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipe, setRecipe] = useState({});
 
   const requestAPI = async () => {
     const recipeAPI = await fetchFoodOrDrink(pathname, id);
-    setRecipe(recipeAPI);
+    setRecipe(recipeAPI[0]);
   };
 
   useEffect(() => {
     requestAPI();
   }, []);
 
+  const hasIngredients = (number) => {
+    if (
+      recipe[`strIngredient${[number]}`] !== ''
+      && typeof recipe[`strIngredient${[number]}`] === 'string'
+    ) return true;
+  };
+
+  const {
+    strYoutube, strMeal, strDrink,
+    strCategory, strInstructions, strMealThumb, strDrinkThumb,
+  } = recipe;
   return (
     <main>
-    <img data-testid="recipe-photo" src={  } />
-      <h1 data-testid="recipe-title">{  }</h1>
+      <img
+        data-testid="recipe-photo"
+        src={ strMealThumb || strDrinkThumb }
+        alt={ strMeal || strDrink }
+        width="360px"
+      />
+      <h1 data-testid="recipe-title">{ strMeal || strDrink }</h1>
       <FavoriteButton />
       <ShareButton />
-      <h2 data-testid="recipe-category">{  }</h2>
+      <h2 data-testid="recipe-category">{ strCategory }</h2>
       <ul>
-        { ingredients.map((ingredient, index) => (
-          <li data-testid={`${index}-ingredient-name-and-measure`}>
-            {ingredient}
-          </li>
-        )) }
+        {/* Array criado com base nesse link https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n */}
+        { Array.from({ length: 20 }, (_, i) => i + 1)
+          .filter(hasIngredients)
+          .map((number) => (
+            <li
+              key={ recipe[`strIngredient${[number]}`] }
+              data-testid={ `${number}-ingredient-name-and-measure` }
+            >
+              {recipe[`strIngredient${[number]}`]}
+              {' '}
+              {recipe[`strMeasure${[number]}`]}
+            </li>
+          )) }
       </ul>
-      <p data-testid="instructions">{  }</p>
-      <video width="320" height="240" autoplay>
-        <source src={  } type="video"/>
-        Your browser does not support the video tag.
-      </video>
-      {recipeRecomendation.map((recipe, index) => (
+      <p data-testid="instructions">{ strInstructions }</p>
+      {strYoutube && (
+        <iframe
+          src={ strYoutube.replace('watch?v=', 'embed/') }
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          title="video"
+        />
+      )}
+      {/* {recipeRecomendation.map((recipe, index) => (
         <div data-testid={`${index}-recomendation-card`}>{recipe}</div>
-      ))}
+        ))} */}
       <button
         type="button"
         data-testid="start-recipe-btn"
@@ -46,5 +76,15 @@ function RecipeDetails({ math: { params: { id } }, location: { pathname } }) {
     </main>
   );
 }
-
 export default RecipeDetails;
+
+RecipeDetails.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
