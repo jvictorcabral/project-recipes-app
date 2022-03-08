@@ -5,6 +5,7 @@ import fetchDrinks from '../services/drinksApi';
 import RecipeCard from '../components/RecipeCard';
 import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
+import Header from '../components/Header';
 
 function Drinks({ location: { pathname } }) {
   const [drinks, setDrinks] = useState([]);
@@ -34,6 +35,7 @@ function Drinks({ location: { pathname } }) {
 
   return (
     <div>
+      <Header title="Drinks" />
       <CategoryFilters pathname={ pathname } handleClick={ selectCategory } />
       {drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
         <RecipeCard
