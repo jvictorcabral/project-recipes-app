@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FavoriteButton from '../components/FavoriteButton';
 import ShareButton from '../components/ShareButton';
+import fetchFoodOrDrink from '../services/id';
 
-function RecipeDetails() {
+function RecipeDetails({ math: { params: { id } }, location: { pathname } }) {
+  const [recipe, setRecipe] = useState({});
+
+  const requestAPI = async () => {
+    const recipeAPI = await fetchFoodOrDrink(pathname, id);
+    setRecipe(recipeAPI);
+  };
+
+  useEffect(() => {
+    requestAPI();
+  }, []);
+
   return (
     <main>
-      <img data-testid="recipe-photo" src={  } />
-      <h1 data-testid="recipe-title">{ }</h1>
+    <img data-testid="recipe-photo" src={  } />
+      <h1 data-testid="recipe-title">{  }</h1>
       <FavoriteButton />
       <ShareButton />
       <h2 data-testid="recipe-category">{  }</h2>

@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/foods" component={ Foods } />
       <Route exact path="/drinks" component={ Drinks } />
-      <Route exact path="/foods/:id" component={ Login } />
+      <Route exact path="/foods/:id" component={ RecipeDetails } />
       <Route exact path="/drinks/:id" component={ Login } />
       <Route exact path="/foods/:id/in-progress" component={ Login } />
       <Route exact path="/drinks/:id/in-progress" component={ Login } />

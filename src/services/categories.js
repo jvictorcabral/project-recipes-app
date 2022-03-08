@@ -14,4 +14,15 @@ const fetchCategories = async (pathname) => {
   return results.drinks;
 };
 
+export const fetchFoodOrDrink = async (pathname, id) => {
+  if (pathname.includes('/foods')) {
+    return fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+      .then((response) => response.json())
+      .then((data) => data.meals);
+  }
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => response.json())
+    .then((data) => data.drinks);
+};
+
 export default fetchCategories;
