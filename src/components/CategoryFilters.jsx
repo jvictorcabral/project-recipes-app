@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropType from 'prop-types';
 import fetchCategories from '../services/fetchCategories';
 
-function CategoryFilters({ pathname, handleClick }) {
+function CategoryFilters({ pathname, handleClick, categoryFilter }) {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const CATEGORIES_QUANTITY = 5;
@@ -25,6 +25,7 @@ function CategoryFilters({ pathname, handleClick }) {
           data-testid={ `${category}-category-filter` }
           name={ category }
           onClick={ handleClick }
+          style={ category === categoryFilter ? { backgroundColor: 'gray' } : {} }
         >
           {category}
         </button>
@@ -36,6 +37,7 @@ function CategoryFilters({ pathname, handleClick }) {
 CategoryFilters.propTypes = {
   pathname: PropType.string.isRequired,
   handleClick: PropType.func.isRequired,
+  categoryFilter: PropType.string.isRequired,
 };
 
 export default CategoryFilters;

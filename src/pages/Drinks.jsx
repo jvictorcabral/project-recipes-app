@@ -11,16 +11,21 @@ function Drinks({ location: { pathname } }) {
   const [drinks, setDrinks] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
 
+  const getDrinks = async () => {
+    const results = await fetchDrinks('name', '');
+    setDrinks(results.drinks.slice(0, RECIPES_PER_PAGE));
+  };
+
   useEffect(() => {
-    const getDrinks = async () => {
-      const results = await fetchDrinks('name', '');
-      setDrinks(results.drinks.slice(0, RECIPES_PER_PAGE));
-    };
     getDrinks();
   }, []);
 
   const selectCategory = ({ target: { name } }) => {
-    setCategoryFilter(name);
+    if (categoryFilter === name) {
+      setCategoryFilter('');
+    } else {
+      setCategoryFilter(name);
+    }
   };
 
   useEffect(() => {
@@ -30,13 +35,19 @@ function Drinks({ location: { pathname } }) {
         setDrinks(results.drinks.slice(0, RECIPES_PER_PAGE));
       };
       filterByCategory();
+    } else {
+      getDrinks();
     }
   }, [categoryFilter, pathname]);
 
   return (
     <div>
       <Header title="Drinks" />
-      <CategoryFilters pathname={ pathname } handleClick={ selectCategory } />
+      <CategoryFilters
+        pathname={ pathname }
+        handleClick={ selectCategory }
+        categoryFilter={ categoryFilter }
+      />
       {drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
         <RecipeCard
           key={ idDrink }
