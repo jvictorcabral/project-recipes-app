@@ -43,15 +43,11 @@ function Drinks({ location: { pathname } }) {
   return (
     <div>
       <Header title="Drinks" />
-<<<<<<< HEAD
       <CategoryFilters
         pathname={ pathname }
         handleClick={ selectCategory }
         categoryFilter={ categoryFilter }
       />
-=======
-      <CategoryFilters pathname={ pathname } handleClick={ selectCategory } />
->>>>>>> c098c2f96ac76513c3ffa39dae90b5ff3a03bda3
       {drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
         <RecipeCard
           key={ idDrink }
