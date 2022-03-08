@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../service/api';
+import api from '../services/mealsApi';
 
 const state = {};
 
