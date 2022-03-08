@@ -10,16 +10,21 @@ function Foods({ location: { pathname } }) {
   const [meals, setMeals] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
 
+  const getMeals = async () => {
+    const results = await fetchMeals('name', '');
+    setMeals(results.meals.slice(0, RECIPES_PER_PAGE));
+  };
+
   useEffect(() => {
-    const getMeals = async () => {
-      const results = await fetchMeals('name', '');
-      setMeals(results.meals.slice(0, RECIPES_PER_PAGE));
-    };
     getMeals();
   }, []);
 
   const selectCategory = ({ target: { name } }) => {
-    setCategoryFilter(name);
+    if (categoryFilter === name) {
+      setCategoryFilter('');
+    } else {
+      setCategoryFilter(name);
+    }
   };
 
   useEffect(() => {
@@ -29,12 +34,18 @@ function Foods({ location: { pathname } }) {
         setMeals(results.meals.slice(0, RECIPES_PER_PAGE));
       };
       filterByCategory();
+    } else {
+      getMeals();
     }
   }, [categoryFilter, pathname]);
 
   return (
     <div>
-      <CategoryFilters pathname={ pathname } handleClick={ selectCategory } />
+      <CategoryFilters
+        pathname={ pathname }
+        handleClick={ selectCategory }
+        categoryFilter={ categoryFilter }
+      />
       {meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
         <RecipeCard
           key={ idMeal }
