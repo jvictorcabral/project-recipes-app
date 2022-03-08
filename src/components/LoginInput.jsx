@@ -11,7 +11,7 @@ export default function LoginInput() {
     if (
       userEmail.includes('@')
         && userEmail.includes('.com')
-        && userPassword.length >= MAGIC_NUM) {
+        && userPassword.length > MAGIC_NUM) {
       return false;
     }
     return true;
