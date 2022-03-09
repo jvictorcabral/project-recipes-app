@@ -15,7 +15,7 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
   const [disabledBtnStartRecipe, setDisabledBtnStartRecipe] = useState(false);
 
   const {
-    strYoutube, strMeal, strDrink, strAlcoholic,
+    strYoutube, strMeal, strDrink, strAlcoholic, idMeal, idDrink,
     strCategory, strInstructions, strMealThumb, strDrinkThumb,
   } = recipe;
 
@@ -28,7 +28,8 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
 
   const findRecipeInProgress = () => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(inProgressRecipes[pathFoodOrDrink]);
+    const idRecipes = Object.keys(inProgressRecipes[pathFoodOrDrink]);
+    idRecipes.some((idRecipe) => Number(idRecipe) === idMeal || idDrink);
   };
 
   const requestAPI = async () => {
@@ -91,7 +92,7 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
               {' '}
               {recipe[`strMeasure${[number]}`]}
             </li>
-          )) }
+          ))}
       </ul>
       <p data-testid="instructions">{ strInstructions }</p>
       {strYoutube && (
