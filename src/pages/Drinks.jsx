@@ -4,6 +4,7 @@ import CategoryFilters from '../components/CategoryFilters';
 import fetchDrinks from '../services/drinksApi';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
 
 function Drinks({ location: { pathname } }) {
   const [drinks, setDrinks] = useState([]);
@@ -20,6 +21,7 @@ function Drinks({ location: { pathname } }) {
   return (
     <div>
       <Header title="Drinks" />
+      <SearchBar />
       <CategoryFilters pathname={ pathname } />
       {drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
         <RecipeCard

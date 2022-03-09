@@ -4,6 +4,7 @@ import CategoryFilters from '../components/CategoryFilters';
 import fetchMeals from '../services/mealsApi';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
 
 function Foods({ location: { pathname } }) {
   const [meals, setMeals] = useState([]);
@@ -19,6 +20,7 @@ function Foods({ location: { pathname } }) {
   return (
     <div>
       <Header title="Foods" />
+      <SearchBar />
       <CategoryFilters pathname={ pathname } />
       {meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
         <RecipeCard
