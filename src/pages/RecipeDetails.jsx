@@ -26,6 +26,11 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
     );
   };
 
+  const findRecipeInProgress = () => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(inProgressRecipes[pathFoodOrDrink]);
+  };
+
   const requestAPI = async () => {
     const recipeAPI = await fetchFoodOrDrink(pathname, id);
     setRecipe(recipeAPI[0]);
@@ -50,6 +55,7 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
       requestRecomendations();
       checkFoodOrDrinkPage();
       findRecipeDone();
+      findRecipeInProgress();
     }
   }, [recipe, id]);
 
