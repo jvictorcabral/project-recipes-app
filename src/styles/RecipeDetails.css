@@ -1,0 +1,6 @@
+.btn__start-recipe {
+  bottom: 0;
+  display: grid;
+  position: fixed;
+  width: 100vw;
+}
