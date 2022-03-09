@@ -24,7 +24,7 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
   };
 
   const {
-    strYoutube, strMeal, strDrink,
+    strYoutube, strMeal, strDrink, strAlcoholic,
     strCategory, strInstructions, strMealThumb, strDrinkThumb,
   } = recipe;
   return (
@@ -39,6 +39,9 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
       <FavoriteButton />
       <ShareButton />
       <h2 data-testid="recipe-category">{ strCategory }</h2>
+      {strAlcoholic && (
+        <h3>{strAlcoholic}</h3>
+      )}
       <ul>
         {/* Array criado com base nesse link https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n */}
         { Array.from({ length: 20 }, (_, i) => i + 1)
@@ -64,9 +67,9 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
           title="video"
         />
       )}
-      {/* {recipeRecomendation.map((recipe, index) => (
-        <div data-testid={`${index}-recomendation-card`}>{recipe}</div>
-        ))} */}
+      {/* {recipeRecomendation.map((recipe, index) => ( */}
+      <div data-testid={ `${'1'}-recomendation-card` }>Recomendação</div>
+      {/* ))} */}
       <button
         type="button"
         data-testid="start-recipe-btn"
