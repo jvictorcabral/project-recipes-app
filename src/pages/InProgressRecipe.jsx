@@ -62,6 +62,7 @@ function InProgressRecipe({
         recipe={ recipe }
         handleCheckbox={ handleCheck }
         doneSteps={ doneSteps }
+        url={ window.location.href.replace('/in-progress', '') }
       />
     </main>
   );
