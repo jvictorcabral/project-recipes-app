@@ -1,67 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Carousel from 'react-bootstrap/Carousel';
 import FavoriteButton from '../components/FavoriteButton';
 import ShareButton from '../components/ShareButton';
+import StartButtonRecipe from '../components/StartButtonRecipe';
+import CarouselItems from '../components/CarouselItems';
 import fetchFoodOrDrink from '../services/id';
-import fetchRecipesRecomendations from '../services/recomendations';
 import '../styles/RecipeDetails.css';
 
-function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
+function RecipeDetails({ match: { params: { id } }, location: { pathname }, history }) {
   const [recipe, setRecipe] = useState({});
-  const [recipesRecomendation, setrecipesRecomendation] = useState([]);
-  const [pathFoodOrDrink, setPathFoodOrDrink] = useState('');
-  const [disabledBtnStartRecipe, setDisabledBtnStartRecipe] = useState(false);
-
-  console.log(setDisabledBtnStartRecipe);
-
   const {
-    strYoutube, strMeal, strDrink, strAlcoholic, // idMeal, idDrink,
-    strCategory, strInstructions, strMealThumb, strDrinkThumb,
+    strYoutube, strMeal, strDrink, strAlcoholic, idMeal, idDrink,
+    strCategory, strInstructions, strMealThumb, strDrinkThumb, strArea,
   } = recipe;
-
-  // const findRecipeDone = () => {
-  //   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  //   setDisabledBtnStartRecipe(
-  //     doneRecipes.some(({ name }) => name === strMeal || strDrink),
-  //   );
-  // };
-
-  // const findRecipeInProgress = () => {
-  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   const idRecipes = Object.keys(inProgressRecipes[pathFoodOrDrink]);
-  //   idRecipes.some((idRecipe) => Number(idRecipe) === idMeal || idDrink);
-  // };
 
   const requestAPI = async () => {
     const recipeAPI = await fetchFoodOrDrink(pathname, id);
     setRecipe(recipeAPI[0]);
   };
-
-  const requestRecomendations = async () => {
-    const MAX_RECOMENDATION = 6;
-    const recomendations = await fetchRecipesRecomendations(pathname);
-    setrecipesRecomendation(
-      recomendations.filter((a, index) => index < MAX_RECOMENDATION),
-    );
-  };
-
-  const checkFoodOrDrinkPage = () => {
-    const path = pathname.includes('/drinks') ? 'foods' : 'drinks';
-    setPathFoodOrDrink(path);
-  };
-
-  useEffect(() => {
-    if (!pathname.includes(recipe.idMeal || recipe.idDrink)) {
-      requestAPI();
-      requestRecomendations();
-      checkFoodOrDrinkPage();
-      // findRecipeDone();
-      // findRecipeInProgress();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipe, id]);
 
   const hasIngredients = (number) => {
     if (
@@ -69,6 +25,13 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
       && typeof recipe[`strIngredient${[number]}`] === 'string'
     ) return true;
   };
+
+  useEffect(() => {
+    if (!pathname.includes(idMeal || idDrink)) {
+      requestAPI();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <main>
@@ -79,8 +42,17 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
         width="360px"
       />
       <h1 data-testid="recipe-title">{ strMeal || strDrink }</h1>
-      <FavoriteButton />
-      <ShareButton />
+      <FavoriteButton
+        pathname={ pathname }
+        nameRecipe={ strMeal || strDrink }
+        idRecipe={ idMeal || idDrink }
+        type={ pathname.includes('foods') ? 'food' : 'drink' }
+        nationality={ strArea || '' }
+        category={ strCategory }
+        alcoholicOrNot={ strAlcoholic || '' }
+        image={ strMealThumb || strDrinkThumb }
+      />
+      <ShareButton url={ window.location.href } />
       <h2 data-testid="recipe-category">{ strAlcoholic || strCategory }</h2>
       <ul>
         {/* Array criado com base nesse link https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n */}
@@ -102,53 +74,27 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
         <iframe
           data-testid="video"
           src={ strYoutube.replace('watch?v=', 'embed/') }
-          frameBorder="0"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
           title="video"
         />
       )}
-      <Carousel>
-        {recipesRecomendation
-          .map((recomendation, index) => (
-            <Carousel.Item
-              key={ recomendation.idMeal || recomendation.idDrink }
-            >
-              <Link
-                to={
-                  `/${pathFoodOrDrink}/${recomendation.idMeal || recomendation.idDrink}`
-                }
-                data-testid={ `${index}-recomendation-card` }
-              >
-                <img
-                  src={ recomendation.strMealThumb || recomendation.strDrinkThumb }
-                  alt={ recomendation.strMeal || recomendation.strDrink }
-                  style={ { width: '40%' } }
-                />
-                <h2
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  {recomendation.strMeal || recomendation.strDrink}
-                </h2>
-              </Link>
-            </Carousel.Item>
-          ))}
-      </Carousel>
-      {!disabledBtnStartRecipe && (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="btn__start-recipe"
-        >
-          Iniciar Receita
-        </button>
-      )}
+      <CarouselItems
+        pathname={ pathname }
+      />
+      <StartButtonRecipe
+        nameRecipe={ strMeal || strDrink }
+        idRecipe={ idMeal || idDrink }
+        history={ history }
+        pathname={ pathname }
+      />
     </main>
   );
 }
 export default RecipeDetails;
 
 RecipeDetails.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }).isRequired,
