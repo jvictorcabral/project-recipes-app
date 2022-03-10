@@ -1,13 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
-import { createMemoryHistory } from 'history';
+import { screen } from '@testing-library/react';
+// import { Router } from 'react-router-dom';
+// import userEvent from '@testing-library/user-event';
+// import { createMemoryHistory } from 'history';
 import renderWithRouter from '../renderWithRouter';
 import Header from '../components/Header';
-import Login from '../pages/Login';
-import Foods from '../pages/Foods';
-import Drinks from '../pages/Drinks';
+// import Login from '../pages/Login';
+// import Foods from '../pages/Foods';
+// import Drinks from '../pages/Drinks';
 import Explore from '../pages/Explore';
 import ExploreFoods from '../pages/ExploreFoods';
 import ExploreDrinks from '../pages/ExploreDrinks';
@@ -138,22 +138,15 @@ describe('Test the component Header.jsx', () => {
   });
   // req 11
 
-  it('Test if the user is redirected to the /profile when they click on "perfil"', () => {
-    const history = createMemoryHistory();
-    render(
-      <Router history={ history }>
-        <Foods />
-      </Router>,
-    );
+  // it('Test if the user is redirected to the /profile when they click on "perfil"', () => {
+  //   renderWithRouter(<Foods />);
 
-    history.push('/foods');
+  //   const profileBtn = screen.getByTestId(profile);
 
-    const profileBtn = screen.getByTestId(profile);
+  //   userEvent('click', profileBtn);
 
-    userEvent('click', profileBtn);
+  //   const profileH1 = screen.getByText(/Profile/i);
 
-    const profileH1 = screen.getByText(/Profile/i);
-
-    expect(profileH1).toBeInTheDocument();
-  });
+  //   expect(profileH1).toBeInTheDocument();
+  // });
 });
