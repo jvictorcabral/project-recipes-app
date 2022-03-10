@@ -17,22 +17,6 @@ function Header(props) {
     }
   };
 
-  // function searchIcon() {
-  //   return (
-  //     <button
-  //       data-testid="search-input"
-  //       onClick={ validateSearch }
-  //       type="button"
-  //     >
-  //       <img
-  //         src={ search }
-  //         alt="search"
-  //         data-testid="search-top-btn"
-  //       />
-  //     </button>
-  //   );
-  // }
-
   return (
     <header>
       <Link to="/profile">
