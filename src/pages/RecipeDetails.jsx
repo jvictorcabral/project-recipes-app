@@ -14,23 +14,25 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
   const [pathFoodOrDrink, setPathFoodOrDrink] = useState('');
   const [disabledBtnStartRecipe, setDisabledBtnStartRecipe] = useState(false);
 
+  console.log(setDisabledBtnStartRecipe);
+
   const {
-    strYoutube, strMeal, strDrink, strAlcoholic, idMeal, idDrink,
+    strYoutube, strMeal, strDrink, strAlcoholic, // idMeal, idDrink,
     strCategory, strInstructions, strMealThumb, strDrinkThumb,
   } = recipe;
 
-  const findRecipeDone = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    setDisabledBtnStartRecipe(
-      doneRecipes.some(({ name }) => name === strMeal || strDrink),
-    );
-  };
+  // const findRecipeDone = () => {
+  //   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  //   setDisabledBtnStartRecipe(
+  //     doneRecipes.some(({ name }) => name === strMeal || strDrink),
+  //   );
+  // };
 
-  const findRecipeInProgress = () => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const idRecipes = Object.keys(inProgressRecipes[pathFoodOrDrink]);
-    idRecipes.some((idRecipe) => Number(idRecipe) === idMeal || idDrink);
-  };
+  // const findRecipeInProgress = () => {
+  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   const idRecipes = Object.keys(inProgressRecipes[pathFoodOrDrink]);
+  //   idRecipes.some((idRecipe) => Number(idRecipe) === idMeal || idDrink);
+  // };
 
   const requestAPI = async () => {
     const recipeAPI = await fetchFoodOrDrink(pathname, id);
@@ -55,9 +57,10 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname } }) {
       requestAPI();
       requestRecomendations();
       checkFoodOrDrinkPage();
-      findRecipeDone();
-      findRecipeInProgress();
+      // findRecipeDone();
+      // findRecipeInProgress();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipe, id]);
 
   const hasIngredients = (number) => {
