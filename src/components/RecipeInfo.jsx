@@ -4,7 +4,7 @@ import { INGREDIENTS_QUANTITY } from '../constants/constants';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 
-function RecipeInfo({ recipe, handleCheckbox, doneSteps }) {
+function RecipeInfo({ recipe, handleCheckbox, doneSteps, setDisableBtn }) {
   const [ingredients, setIngredients] = useState([]);
   const {
     strMeal,
@@ -28,6 +28,10 @@ function RecipeInfo({ recipe, handleCheckbox, doneSteps }) {
       });
     }
   }, [recipe]);
+
+  useEffect(() => {
+    setDisableBtn(doneSteps.length !== ingredients.length);
+  }, [doneSteps.length, ingredients.length, setDisableBtn]);
 
   return (
     <div>
@@ -58,9 +62,6 @@ function RecipeInfo({ recipe, handleCheckbox, doneSteps }) {
         ))}
       </ul>
       <p data-testid="instructions">{strInstructions}</p>
-      <button data-testid="finish-recipe-btn" type="button">
-        Finish Recipe
-      </button>
     </div>
   );
 }
@@ -77,6 +78,7 @@ RecipeInfo.propTypes = {
   }).isRequired,
   handleCheckbox: PropType.func.isRequired,
   doneSteps: PropType.arrayOf(PropType.string),
+  setDisableBtn: PropType.func.isRequired,
 };
 
 RecipeInfo.defaultProps = {
