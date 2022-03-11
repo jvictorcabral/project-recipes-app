@@ -6,7 +6,7 @@ import ShareButton from './ShareButton';
 
 function RecipeInfo({
   recipe,
-  handleCheckbox,
+  setDoneSteps,
   doneSteps,
   url,
   pathname,
@@ -35,6 +35,14 @@ function RecipeInfo({
     }
   }, [recipe, setIngredients]);
 
+  const handleCheck = ({ target }) => {
+    if (target.checked) {
+      setDoneSteps((prev) => [...prev, target.id]);
+    } else {
+      setDoneSteps((prev) => prev.filter((step) => step !== target.id));
+    }
+  };
+
   return (
     <div>
       <img
@@ -58,7 +66,7 @@ function RecipeInfo({
               <input
                 id={ number }
                 type="checkbox"
-                onChange={ handleCheckbox }
+                onChange={ handleCheck }
                 checked={ doneSteps.includes(number.toString()) }
               />
               {text}
@@ -81,7 +89,7 @@ RecipeInfo.propTypes = {
     strMealThumb: PropType.string,
     strDrinkThumb: PropType.string,
   }).isRequired,
-  handleCheckbox: PropType.func.isRequired,
+  setDoneSteps: PropType.func.isRequired,
   doneSteps: PropType.arrayOf(PropType.string),
   url: PropType.string.isRequired,
   ingredients: PropType.shape({
