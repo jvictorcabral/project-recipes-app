@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropType from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import fetchFoodOrDrink from '../services/id';
 import RecipeInfo from '../components/RecipeInfo';
+import FinishButton from '../components/FinishButton';
 
 function InProgressRecipe({
   location: { pathname },
@@ -11,10 +13,12 @@ function InProgressRecipe({
 }) {
   const [recipe, setRecipe] = useState({});
   const [doneSteps, setDoneSteps] = useState([]);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const [disableBtn, setDisableBtn] = useState(true);
+  const [ingredients, setIngredients] = useState([]);
 
-  const { idMeal, idDrink } = recipe;
   const key = pathname.includes('foods') ? 'meals' : 'cocktails';
+  const { idMeal, idDrink } = recipe;
 
   useEffect(() => {
     if (!localStorage.getItem('inProgressRecipes')) {
@@ -57,18 +61,29 @@ function InProgressRecipe({
     }
   }, [doneSteps, idDrink, idMeal, key, recipe]);
 
+  useEffect(() => {
+    setDisableBtn(doneSteps.length !== ingredients.length);
+  }, [doneSteps.length, ingredients.length, setDisableBtn]);
+
   return (
     <main>
+      {shouldRedirect && <Redirect to="/done-recipes" />}
       <RecipeInfo
         recipe={ recipe }
         handleCheckbox={ handleCheck }
         doneSteps={ doneSteps }
-        setDisableBtn={ setDisableBtn }
+        type={ key }
         url={ window.location.href.replace('/in-progress', '') }
+        ingredients={ { ingredients, setIngredients } }
+        pathname={ pathname }
       />
-      <button data-testid="finish-recipe-btn" type="button" disabled={ disableBtn }>
-        Finish Recipe
-      </button>
+      <FinishButton
+        recipe={ recipe }
+        setShouldRedirect={ setShouldRedirect }
+        type={ key }
+        setDisableBtn={ setDisableBtn }
+        disableBtn={ disableBtn }
+      />
     </main>
   );
 }
