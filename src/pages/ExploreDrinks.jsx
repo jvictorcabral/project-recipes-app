@@ -7,6 +7,8 @@ function ExploreDrinks({ history }) {
   return (
     <main>
       <Header title="Explore Drinks" />
+      <button type="button" data-testid="explore-by-ingredient">By Ingredient</button>
+      <button type="button" data-testid="explore-surprise">Surprise me!</button>
       <Footer history={ history } />
     </main>
   );
