@@ -8,6 +8,7 @@ import RecipeCard from '../components/RecipeCard';
 import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
 import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
 
 function Drinks({ location: { pathname }, history }) {
   const [drinks, setDrinks] = useState([]);
@@ -45,6 +46,8 @@ function Drinks({ location: { pathname }, history }) {
   return (
     <div>
       <Header title="Drinks" />
+      <SearchBar />
+      <CategoryFilters pathname={ pathname } />
       <CategoryFilters
         pathname={ pathname }
         handleClick={ selectCategory }
