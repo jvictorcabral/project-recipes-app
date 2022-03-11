@@ -11,6 +11,7 @@ function InProgressRecipe({
 }) {
   const [recipe, setRecipe] = useState({});
   const [doneSteps, setDoneSteps] = useState([]);
+  const [disableBtn, setDisableBtn] = useState(true);
 
   const { idMeal, idDrink } = recipe;
   const key = pathname.includes('foods') ? 'meals' : 'cocktails';
@@ -25,7 +26,7 @@ function InProgressRecipe({
       const savedProgress = JSON.parse(
         localStorage.getItem('inProgressRecipes'),
       );
-      setDoneSteps(savedProgress[key][id]);
+      setDoneSteps(savedProgress[key][id] || []);
     }
   }, [id, key]);
 
@@ -62,8 +63,12 @@ function InProgressRecipe({
         recipe={ recipe }
         handleCheckbox={ handleCheck }
         doneSteps={ doneSteps }
+        setDisableBtn={ setDisableBtn }
         url={ window.location.href.replace('/in-progress', '') }
       />
+      <button data-testid="finish-recipe-btn" type="button" disabled={ disableBtn }>
+        Finish Recipe
+      </button>
     </main>
   );
 }
