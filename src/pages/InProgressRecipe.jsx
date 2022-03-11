@@ -64,6 +64,7 @@ function InProgressRecipe({
         handleCheckbox={ handleCheck }
         doneSteps={ doneSteps }
         setDisableBtn={ setDisableBtn }
+        url={ window.location.href.replace('/in-progress', '') }
       />
       <button data-testid="finish-recipe-btn" type="button" disabled={ disableBtn }>
         Finish Recipe

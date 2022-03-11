@@ -4,7 +4,7 @@ import { INGREDIENTS_QUANTITY } from '../constants/constants';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 
-function RecipeInfo({ recipe, handleCheckbox, doneSteps, setDisableBtn }) {
+function RecipeInfo({ recipe, handleCheckbox, doneSteps, setDisableBtn, url }) {
   const [ingredients, setIngredients] = useState([]);
   const {
     strMeal,
@@ -43,7 +43,7 @@ function RecipeInfo({ recipe, handleCheckbox, doneSteps, setDisableBtn }) {
       />
       <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
       <FavoriteButton />
-      <ShareButton />
+      <ShareButton url={ url } />
       <h2 data-testid="recipe-category">{strCategory}</h2>
       {strAlcoholic && <h3>{strAlcoholic}</h3>}
       <ul>
@@ -79,6 +79,7 @@ RecipeInfo.propTypes = {
   handleCheckbox: PropType.func.isRequired,
   doneSteps: PropType.arrayOf(PropType.string),
   setDisableBtn: PropType.func.isRequired,
+  url: PropType.string.isRequired,
 };
 
 RecipeInfo.defaultProps = {
