@@ -75,6 +75,7 @@ function InProgressRecipe({
         type={ key }
         url={ window.location.href.replace('/in-progress', '') }
         ingredients={ { ingredients, setIngredients } }
+        pathname={ pathname }
       />
       <FinishButton
         recipe={ recipe }

@@ -3,9 +3,21 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteButton({
-  nameRecipe, idRecipe, type, nationality, category, alcoholicOrNot, image, pathname,
-}) {
+function FavoriteButton({ recipe, pathname }) {
+  const {
+    strMeal,
+    strDrink,
+    idMeal,
+    idDrink,
+    strArea,
+    strCategory,
+    strAlcoholic,
+    strMealThumb,
+    strDrinkThumb,
+  } = recipe;
+  const nameRecipe = strMeal || strDrink;
+  const idRecipe = idMeal || idDrink;
+
   const [isFavorite, setIsFavorite] = useState(false);
 
   const checkFavoriteRecipe = () => {
@@ -26,14 +38,13 @@ function FavoriteButton({
   const addFavoriteRecipe = (favoritesRecipes) => {
     const recipesAtt = [...favoritesRecipes, {
       id: idRecipe,
-      type,
-      nationality,
-      category,
-      alcoholicOrNot,
+      type: pathname.includes('foods') ? 'food' : 'drink',
+      nationality: strArea || '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic || '',
       name: nameRecipe,
-      image,
+      image: strMealThumb || strDrinkThumb,
     }];
-    console.log(recipesAtt);
     localStorage.setItem('favoriteRecipes', JSON.stringify(recipesAtt));
   };
 
@@ -41,7 +52,6 @@ function FavoriteButton({
     const recipesAtt = favoritesRecipes.filter(
       ({ name, id }) => name !== nameRecipe && id !== idRecipe,
     );
-    console.log(recipesAtt);
     localStorage.setItem('favoriteRecipes', JSON.stringify(recipesAtt));
   };
 
@@ -74,12 +84,16 @@ function FavoriteButton({
 export default FavoriteButton;
 
 FavoriteButton.propTypes = {
-  nameRecipe: PropTypes.string,
-  idRecipe: PropTypes.string,
-  type: PropTypes.string,
-  nationality: PropTypes.string,
-  category: PropTypes.string,
-  alcoholicOrNot: PropTypes.string,
-  image: PropTypes.string,
+  recipe: PropTypes.shape({
+    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
+    strArea: PropTypes.string,
+    strMeal: PropTypes.string,
+    strDrink: PropTypes.string,
+    strAlcoholic: PropTypes.string,
+    strCategory: PropTypes.string,
+    strMealThumb: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+  }).isRequired,
   pathname: PropTypes.string,
 }.isRequired;

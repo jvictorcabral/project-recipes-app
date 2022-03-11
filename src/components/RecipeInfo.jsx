@@ -9,6 +9,7 @@ function RecipeInfo({
   handleCheckbox,
   doneSteps,
   url,
+  pathname,
   ingredients: { ingredients, setIngredients },
 }) {
   const {
@@ -43,7 +44,10 @@ function RecipeInfo({
         width="360px"
       />
       <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
-      <FavoriteButton />
+      <FavoriteButton
+        pathname={ pathname }
+        recipe={ recipe }
+      />
       <ShareButton url={ url } />
       <h2 data-testid="recipe-category">{strCategory}</h2>
       {strAlcoholic && <h3>{strAlcoholic}</h3>}
@@ -84,6 +88,7 @@ RecipeInfo.propTypes = {
     ingredients: PropType.arrayOf(PropType.object),
     setIngredients: PropType.func,
   }).isRequired,
+  pathname: PropType.string.isRequired,
 };
 
 RecipeInfo.defaultProps = {
