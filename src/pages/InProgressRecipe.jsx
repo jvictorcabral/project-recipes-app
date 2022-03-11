@@ -57,6 +57,9 @@ function InProgressRecipe({
         ...progress[key],
         [idMeal || idDrink]: doneSteps,
       };
+      if (doneSteps.length === 0) {
+        delete progress[key][idMeal || idDrink];
+      }
       localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
     }
   }, [doneSteps, idDrink, idMeal, key, recipe]);
