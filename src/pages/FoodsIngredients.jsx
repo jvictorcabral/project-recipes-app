@@ -21,7 +21,7 @@ function FoodsIngredients({ history, location: { pathname } }) {
 
   return (
     <main>
-      <Header title="Foods Ingredients" />
+      <Header title="Explore Ingredients" />
       {ingredients.map(({ strIngredient }, index) => (
         <div data-testid={ `${index}-card-name` } key={ strIngredient }>
           <p data-testid={ `${index}-ingredient-card` }>
