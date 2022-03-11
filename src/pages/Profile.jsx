@@ -6,7 +6,7 @@ import Header from '../components/Header';
 function Profile({ history }) {
   return (
     <main>
-      <Header title="Perfil" />
+      <Header title="Profile" />
       <Footer history={ history } />
     </main>
   );
