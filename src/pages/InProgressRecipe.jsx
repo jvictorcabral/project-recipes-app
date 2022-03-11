@@ -14,6 +14,7 @@ function InProgressRecipe({
   const [recipe, setRecipe] = useState({});
   const [doneSteps, setDoneSteps] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(true);
 
   const key = pathname.includes('foods') ? 'meals' : 'cocktails';
   const { idMeal, idDrink } = recipe;
@@ -72,7 +73,12 @@ function InProgressRecipe({
         recipe={ recipe }
         setShouldRedirect={ setShouldRedirect }
         type={ key }
+        setDisableBtn={ setDisableBtn }
+        url={ window.location.href.replace('/in-progress', '') }
       />
+      <button data-testid="finish-recipe-btn" type="button" disabled={ disableBtn }>
+        Finish Recipe
+      </button>
     </main>
   );
 }
