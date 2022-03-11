@@ -1,7 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
 
-function FinishButton({ recipe, setShouldRedirect, type }) {
+function FinishButton({ recipe, setShouldRedirect, type, disableBtn }) {
   const {
     idMeal,
     idDrink,
@@ -30,20 +30,25 @@ function FinishButton({ recipe, setShouldRedirect, type }) {
   const handleClick = () => {
     if (localStorage.getItem('doneRecipes')) {
       localStorage.setItem(
-        'doneRecipes', JSON.stringify(
-          [...JSON.parse(localStorage.getItem('doneRecipes')), doneRecipe],
-        ),
+        'doneRecipes',
+        JSON.stringify([
+          ...JSON.parse(localStorage.getItem('doneRecipes')),
+          doneRecipe,
+        ]),
       );
     } else {
-      localStorage.setItem(
-        'doneRecipes', JSON.stringify([doneRecipe]),
-      );
+      localStorage.setItem('doneRecipes', JSON.stringify([doneRecipe]));
     }
     setShouldRedirect(true);
   };
 
   return (
-    <button data-testid="finish-recipe-btn" type="button" onClick={ handleClick }>
+    <button
+      data-testid="finish-recipe-btn"
+      type="button"
+      onClick={ handleClick }
+      disabled={ disableBtn }
+    >
       Finish Recipe
     </button>
   );
@@ -65,6 +70,7 @@ FinishButton.propTypes = {
   }).isRequired,
   setShouldRedirect: PropType.func.isRequired,
   type: PropType.string.isRequired,
+  disableBtn: PropType.bool.isRequired,
 };
 
 export default FinishButton;
