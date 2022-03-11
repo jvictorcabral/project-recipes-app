@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -9,6 +9,15 @@ function ShareButton({ url }) {
     navigator.clipboard.writeText(url);
     setCopyLink(true);
   };
+
+  useEffect(() => {
+    const TWO_SECONDS = 2000;
+    if (copyLink) {
+      setTimeout(() => {
+        setCopyLink(false);
+      }, TWO_SECONDS);
+    }
+  }, [copyLink]);
 
   return (
     <>

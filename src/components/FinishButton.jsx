@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropType from 'prop-types';
 
-function FinishButton({ recipe, setShouldRedirect, type, disableBtn }) {
+function FinishButton({ recipe, setShouldRedirect, type, doneSteps, ingredients }) {
+  const [disableBtn, setDisableBtn] = useState(true);
   const {
     idMeal,
     idDrink,
@@ -42,6 +43,10 @@ function FinishButton({ recipe, setShouldRedirect, type, disableBtn }) {
     setShouldRedirect(true);
   };
 
+  useEffect(() => {
+    setDisableBtn(doneSteps.length !== ingredients.length);
+  }, [doneSteps.length, ingredients.length]);
+
   return (
     <button
       data-testid="finish-recipe-btn"
@@ -70,7 +75,8 @@ FinishButton.propTypes = {
   }).isRequired,
   setShouldRedirect: PropType.func.isRequired,
   type: PropType.string.isRequired,
-  disableBtn: PropType.bool.isRequired,
+  doneSteps: PropType.arrayOf(PropType.string).isRequired,
+  ingredients: PropType.arrayOf(PropType.object).isRequired,
 };
 
 export default FinishButton;

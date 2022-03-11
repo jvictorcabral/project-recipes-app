@@ -6,7 +6,7 @@ import Header from '../components/Header';
 function FoodsIngredients({ history }) {
   return (
     <main>
-      <Header title="Ingredientizinhos das Comidinhas" />
+      <Header title="Explore Ingredients" />
       <Footer history={ history } />
     </main>
   );
