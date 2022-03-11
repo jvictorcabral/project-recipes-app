@@ -4,26 +4,22 @@ import FavoriteButton from '../components/FavoriteButton';
 import ShareButton from '../components/ShareButton';
 import StartButtonRecipe from '../components/StartButtonRecipe';
 import CarouselItems from '../components/CarouselItems';
+import IngredientsQuantity from '../components/IngredientsQuantity';
 import fetchFoodOrDrink from '../services/id';
 import '../styles/RecipeDetails.css';
+import YoutubeVideo from '../components/YoutubeVideo';
+import InformationFoodOrDrink from '../components/InformationFoodOrDrink';
 
 function RecipeDetails({ match: { params: { id } }, location: { pathname }, history }) {
   const [recipe, setRecipe] = useState({});
   const {
     strYoutube, strMeal, strDrink, strAlcoholic, idMeal, idDrink,
-    strCategory, strInstructions, strMealThumb, strDrinkThumb, strArea,
+    strCategory, strMealThumb, strDrinkThumb, strArea,
   } = recipe;
 
   const requestAPI = async () => {
     const recipeAPI = await fetchFoodOrDrink(pathname, id);
     setRecipe(recipeAPI[0]);
-  };
-
-  const hasIngredients = (number) => {
-    if (
-      recipe[`strIngredient${[number]}`] !== ''
-      && typeof recipe[`strIngredient${[number]}`] === 'string'
-    ) return true;
   };
 
   useEffect(() => {
@@ -35,13 +31,7 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname }, hist
 
   return (
     <main>
-      <img
-        data-testid="recipe-photo"
-        src={ strMealThumb || strDrinkThumb }
-        alt={ strMeal || strDrink }
-        width="360px"
-      />
-      <h1 data-testid="recipe-title">{ strMeal || strDrink }</h1>
+      <InformationFoodOrDrink recipe={ recipe } />
       <FavoriteButton
         pathname={ pathname }
         nameRecipe={ strMeal || strDrink }
@@ -53,29 +43,9 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname }, hist
         image={ strMealThumb || strDrinkThumb }
       />
       <ShareButton url={ window.location.href } />
-      <h2 data-testid="recipe-category">{ strAlcoholic || strCategory }</h2>
-      <ul>
-        {/* Array criado com base nesse link https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n */}
-        { Array.from({ length: 20 }, (_, i) => i + 1)
-          .filter(hasIngredients)
-          .map((number) => (
-            <li
-              key={ number }
-              data-testid={ `${number - 1}-ingredient-name-and-measure` }
-            >
-              {recipe[`strIngredient${[number]}`]}
-              {' '}
-              {recipe[`strMeasure${[number]}`]}
-            </li>
-          ))}
-      </ul>
-      <p data-testid="instructions">{ strInstructions }</p>
+      <IngredientsQuantity recipe={ recipe } />
       {strYoutube && (
-        <iframe
-          data-testid="video"
-          src={ strYoutube.replace('watch?v=', 'embed/') }
-          title="video"
-        />
+        <YoutubeVideo video={ strYoutube } />
       )}
       <CarouselItems
         pathname={ pathname }
