@@ -11,10 +11,19 @@ function ExploreFoods({ history }) {
     history.push(`/foods/${id}`);
   };
 
+  const handleClick = ({ target }) => {
+    history.push(`/explore/foods/${target.name}`);
+  };
+
   return (
     <main>
       <Header title="Explore Foods" />
-      <button type="button" data-testid="explore-by-ingredient">
+      <button
+        type="button"
+        name="ingredients"
+        data-testid="explore-by-ingredient"
+        onClick={ handleClick }
+      >
         By Ingredient
       </button>
       <button type="button" data-testid="explore-by-nationality">
