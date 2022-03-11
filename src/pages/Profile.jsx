@@ -28,7 +28,7 @@ function Profile({ history }) {
 
   return (
     <main>
-      <Header title="Perfil" />
+      <Header title="Profile" />
       <h2 data-testid="profile-email">
         {user.email}
       </h2>

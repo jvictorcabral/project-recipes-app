@@ -13,8 +13,7 @@ import InformationFoodOrDrink from '../components/InformationFoodOrDrink';
 function RecipeDetails({ match: { params: { id } }, location: { pathname }, history }) {
   const [recipe, setRecipe] = useState({});
   const {
-    strYoutube, strMeal, strDrink, strAlcoholic, idMeal, idDrink,
-    strCategory, strMealThumb, strDrinkThumb, strArea,
+    strYoutube, strMeal, strDrink, idMeal, idDrink,
   } = recipe;
 
   const requestAPI = async () => {
@@ -34,13 +33,7 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname }, hist
       <InformationFoodOrDrink recipe={ recipe } />
       <FavoriteButton
         pathname={ pathname }
-        nameRecipe={ strMeal || strDrink }
-        idRecipe={ idMeal || idDrink }
-        type={ pathname.includes('foods') ? 'food' : 'drink' }
-        nationality={ strArea || '' }
-        category={ strCategory }
-        alcoholicOrNot={ strAlcoholic || '' }
-        image={ strMealThumb || strDrinkThumb }
+        recipe={ recipe }
       />
       <ShareButton url={ window.location.href } />
       <IngredientsQuantity recipe={ recipe } />
