@@ -26,7 +26,7 @@ function StartButtonRecipe({ nameRecipe, idRecipe, history, pathname }) {
     const mealOrDrink = pathname.includes('foods') ? 'meals' : 'cocktails';
     const idRecipes = Object.keys(inProgressRecipes[mealOrDrink]);
     setInProgressRecipe(
-      idRecipes.some((id) => Number(id) === idRecipe),
+      idRecipes.some((id) => id === idRecipe),
     );
   };
 
@@ -34,7 +34,7 @@ function StartButtonRecipe({ nameRecipe, idRecipe, history, pathname }) {
     findRecipeDone();
     findRecipeInProgress();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pathname, idRecipe]);
 
   return (
     <div>

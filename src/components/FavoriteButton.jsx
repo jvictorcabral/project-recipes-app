@@ -21,7 +21,7 @@ function FavoriteButton({
   useEffect(() => {
     checkFavoriteRecipe();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, idRecipe]);
 
   const addFavoriteRecipe = (favoritesRecipes) => {
     const recipesAtt = [...favoritesRecipes, {
@@ -60,6 +60,9 @@ function FavoriteButton({
       type="button"
       data-testid="favorite-btn"
       onClick={ removeOrAddFavoriteRecipe }
+      src={
+        isFavorite ? blackHeartIcon : whiteHeartIcon
+      }
     >
       {isFavorite
         ? <img src={ blackHeartIcon } alt="blackHeartIcon" />
