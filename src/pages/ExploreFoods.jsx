@@ -26,7 +26,12 @@ function ExploreFoods({ history }) {
       >
         By Ingredient
       </button>
-      <button type="button" data-testid="explore-by-nationality">
+      <button
+        type="button"
+        name="nationalities"
+        data-testid="explore-by-nationality"
+        onClick={ handleClick }
+      >
         By Nationality
       </button>
       <button
