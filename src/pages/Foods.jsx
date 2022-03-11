@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import PropType from 'prop-types';
 import { Link } from 'react-router-dom';
 import CategoryFilters from '../components/CategoryFilters';
+import Footer from '../components/Footer';
 import fetchMeals from '../services/mealsApi';
 import RecipeCard from '../components/RecipeCard';
 import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
 import Header from '../components/Header';
 
-function Foods({ location: { pathname } }) {
+function Foods({ location: { pathname }, history }) {
   const [meals, setMeals] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
 
@@ -61,6 +62,7 @@ function Foods({ location: { pathname } }) {
           />
         </Link>
       ))}
+      <Footer history={ history } />
     </div>
   );
 }
@@ -69,6 +71,7 @@ Foods.propTypes = {
   location: PropType.shape({
     pathname: PropType.string,
   }).isRequired,
+  history: PropType.objectOf(PropType.any).isRequired,
 };
 
 export default Foods;
