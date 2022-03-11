@@ -58,9 +58,6 @@ function RecipeInfo({ recipe, handleCheckbox, doneSteps }) {
         ))}
       </ul>
       <p data-testid="instructions">{strInstructions}</p>
-      <button data-testid="finish-recipe-btn" type="button">
-        Finish Recipe
-      </button>
     </div>
   );
 }

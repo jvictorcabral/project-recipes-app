@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropType from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import fetchFoodOrDrink from '../services/id';
 import RecipeInfo from '../components/RecipeInfo';
+import FinishButton from '../components/FinishButton';
 
 function InProgressRecipe({
   location: { pathname },
@@ -11,9 +13,10 @@ function InProgressRecipe({
 }) {
   const [recipe, setRecipe] = useState({});
   const [doneSteps, setDoneSteps] = useState([]);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
-  const { idMeal, idDrink } = recipe;
   const key = pathname.includes('foods') ? 'meals' : 'cocktails';
+  const { idMeal, idDrink } = recipe;
 
   useEffect(() => {
     if (!localStorage.getItem('inProgressRecipes')) {
@@ -25,7 +28,7 @@ function InProgressRecipe({
       const savedProgress = JSON.parse(
         localStorage.getItem('inProgressRecipes'),
       );
-      setDoneSteps(savedProgress[key][id]);
+      setDoneSteps(savedProgress[key][id] || []);
     }
   }, [id, key]);
 
@@ -58,10 +61,17 @@ function InProgressRecipe({
 
   return (
     <main>
+      {shouldRedirect && <Redirect to="/done-recipes" />}
       <RecipeInfo
         recipe={ recipe }
         handleCheckbox={ handleCheck }
         doneSteps={ doneSteps }
+        type={ key }
+      />
+      <FinishButton
+        recipe={ recipe }
+        setShouldRedirect={ setShouldRedirect }
+        type={ key }
       />
     </main>
   );
