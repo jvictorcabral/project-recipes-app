@@ -1,7 +1,6 @@
-.footer {
+.btn__start-recipe {
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(3, 33.333%);
   position: fixed;
   width: 100vw;
 }

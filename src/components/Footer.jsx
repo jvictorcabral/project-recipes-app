@@ -12,20 +12,23 @@ function Footer({ history }) {
         type="button"
         onClick={ () => history.push('/drinks') }
         data-testid="drinks-bottom-btn"
+        src={ drinkIcon }
       >
-        <img src={ drinkIcon } alt="drink" />
+        <img src={ drinkIcon } alt="drinkIcon" />
       </button>
       <button
         type="button"
         onClick={ () => history.push('/explore') }
         data-testid="explore-bottom-btn"
+        src={ exploreIcon }
       >
         <img src={ exploreIcon } alt="explore" />
       </button>
       <button
         type="button"
-        onClick={ () => history.push('/food') }
+        onClick={ () => history.push('/foods') }
         data-testid="food-bottom-btn"
+        src={ mealIcon }
       >
         <img src={ mealIcon } alt="meal" />
       </button>
