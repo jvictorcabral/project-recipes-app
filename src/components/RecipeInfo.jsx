@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropType from 'prop-types';
 import { INGREDIENTS_QUANTITY } from '../constants/constants';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 
-function RecipeInfo({ recipe, handleCheckbox, doneSteps, setDisableBtn, url }) {
-  const [ingredients, setIngredients] = useState([]);
+function RecipeInfo({
+  recipe,
+  setDoneSteps,
+  doneSteps,
+  url,
+  pathname,
+  ingredients: { ingredients, setIngredients },
+}) {
   const {
     strMeal,
     strDrink,
@@ -27,11 +33,15 @@ function RecipeInfo({ recipe, handleCheckbox, doneSteps, setDisableBtn, url }) {
         }
       });
     }
-  }, [recipe]);
+  }, [recipe, setIngredients]);
 
-  useEffect(() => {
-    setDisableBtn(doneSteps.length !== ingredients.length);
-  }, [doneSteps.length, ingredients.length, setDisableBtn]);
+  const handleCheck = ({ target }) => {
+    if (target.checked) {
+      setDoneSteps((prev) => [...prev, target.id]);
+    } else {
+      setDoneSteps((prev) => prev.filter((step) => step !== target.id));
+    }
+  };
 
   return (
     <div>
@@ -42,7 +52,10 @@ function RecipeInfo({ recipe, handleCheckbox, doneSteps, setDisableBtn, url }) {
         width="360px"
       />
       <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
-      <FavoriteButton />
+      <FavoriteButton
+        pathname={ pathname }
+        recipe={ recipe }
+      />
       <ShareButton url={ url } />
       <h2 data-testid="recipe-category">{strCategory}</h2>
       {strAlcoholic && <h3>{strAlcoholic}</h3>}
@@ -53,7 +66,7 @@ function RecipeInfo({ recipe, handleCheckbox, doneSteps, setDisableBtn, url }) {
               <input
                 id={ number }
                 type="checkbox"
-                onChange={ handleCheckbox }
+                onChange={ handleCheck }
                 checked={ doneSteps.includes(number.toString()) }
               />
               {text}
@@ -76,10 +89,14 @@ RecipeInfo.propTypes = {
     strMealThumb: PropType.string,
     strDrinkThumb: PropType.string,
   }).isRequired,
-  handleCheckbox: PropType.func.isRequired,
+  setDoneSteps: PropType.func.isRequired,
   doneSteps: PropType.arrayOf(PropType.string),
-  setDisableBtn: PropType.func.isRequired,
   url: PropType.string.isRequired,
+  ingredients: PropType.shape({
+    ingredients: PropType.arrayOf(PropType.object),
+    setIngredients: PropType.func,
+  }).isRequired,
+  pathname: PropType.string.isRequired,
 };
 
 RecipeInfo.defaultProps = {

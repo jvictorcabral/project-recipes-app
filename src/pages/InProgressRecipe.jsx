@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropType from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import fetchFoodOrDrink from '../services/id';
 import RecipeInfo from '../components/RecipeInfo';
+import FinishButton from '../components/FinishButton';
 
 function InProgressRecipe({
   location: { pathname },
@@ -11,10 +13,11 @@ function InProgressRecipe({
 }) {
   const [recipe, setRecipe] = useState({});
   const [doneSteps, setDoneSteps] = useState([]);
-  const [disableBtn, setDisableBtn] = useState(true);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [ingredients, setIngredients] = useState([]);
 
-  const { idMeal, idDrink } = recipe;
   const key = pathname.includes('foods') ? 'meals' : 'cocktails';
+  const { idMeal, idDrink } = recipe;
 
   useEffect(() => {
     if (!localStorage.getItem('inProgressRecipes')) {
@@ -38,14 +41,6 @@ function InProgressRecipe({
     getRecipe();
   }, [id, pathname]);
 
-  const handleCheck = ({ target }) => {
-    if (target.checked) {
-      setDoneSteps((prev) => [...prev, target.id]);
-    } else {
-      setDoneSteps((prev) => prev.filter((step) => step !== target.id));
-    }
-  };
-
   useEffect(() => {
     if (Object.keys(recipe).length > 0) {
       const progress = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -53,22 +48,32 @@ function InProgressRecipe({
         ...progress[key],
         [idMeal || idDrink]: doneSteps,
       };
+      if (doneSteps.length === 0) {
+        delete progress[key][idMeal || idDrink];
+      }
       localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
     }
   }, [doneSteps, idDrink, idMeal, key, recipe]);
 
   return (
     <main>
+      {shouldRedirect && <Redirect to="/done-recipes" />}
       <RecipeInfo
         recipe={ recipe }
-        handleCheckbox={ handleCheck }
+        setDoneSteps={ setDoneSteps }
         doneSteps={ doneSteps }
-        setDisableBtn={ setDisableBtn }
+        type={ key }
         url={ window.location.href.replace('/in-progress', '') }
+        ingredients={ { ingredients, setIngredients } }
+        pathname={ pathname }
       />
-      <button data-testid="finish-recipe-btn" type="button" disabled={ disableBtn }>
-        Finish Recipe
-      </button>
+      <FinishButton
+        recipe={ recipe }
+        setShouldRedirect={ setShouldRedirect }
+        type={ key }
+        doneSteps={ doneSteps }
+        ingredients={ ingredients }
+      />
     </main>
   );
 }

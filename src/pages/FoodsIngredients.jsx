@@ -24,7 +24,7 @@ function FoodsIngredients({ history, location: { pathname }, setIngredient }) {
 
   return (
     <main>
-      <Header title="Foods Ingredients" />
+      <Header title="Explore Ingredients" />
       {ingredients.map(({ strIngredient }, index) => (
         <Link
           to="/foods"

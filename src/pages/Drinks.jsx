@@ -10,6 +10,7 @@ import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
 import Header from '../components/Header';
 import { removeIngredient } from '../redux/actions';
+import SearchBar from '../components/SearchBar';
 
 function Drinks({ location: { pathname }, history, ingredient, resetIngredient }) {
   const [drinks, setDrinks] = useState([]);
@@ -55,6 +56,8 @@ function Drinks({ location: { pathname }, history, ingredient, resetIngredient }
   return (
     <div>
       <Header title="Drinks" />
+      <SearchBar />
+      <CategoryFilters pathname={ pathname } />
       <CategoryFilters
         pathname={ pathname }
         handleClick={ selectCategory }
