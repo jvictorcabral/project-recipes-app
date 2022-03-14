@@ -77,7 +77,7 @@ describe('Test the component Header.jsx', () => {
     expect(profileBtn).toBeInTheDocument();
     expect(pageTitle).toHaveTextContent('Explore');
   });
-  
+
   it('Test if Header.jsx contains the correct icons on ExploreFoods.jsx', () => {
     renderWithRouter(<ExploreFoods />);
 

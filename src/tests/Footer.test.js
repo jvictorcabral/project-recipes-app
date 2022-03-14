@@ -5,14 +5,14 @@ import renderWithRouter from '../renderWithRouter';
 import Footer from '../components/Footer';
 import Login from '../pages/Login';
 import App from '../App';
-import RecipeDetails from '../pages/RecipeDetails';
+// import RecipeDetails from '../pages/RecipeDetails';
 import Explore from '../pages/Explore';
 import ExploreFoods from '../pages/ExploreFoods';
 import ExploreDrinks from '../pages/ExploreDrinks';
 import FoodsIngredients from '../pages/FoodsIngredients';
 import DrinksIngredients from '../pages/DrinksIngredients';
 import Nationalities from '../pages/Nationalities';
-import Profile from '../pages/Profile';
+// import Profile from '../pages/Profile';
 
 // Req 19
 describe('Implemente o footer respeitando os atributos descritos no protótipo', () => {
