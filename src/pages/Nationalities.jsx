@@ -30,14 +30,12 @@ function Nationalities({ history }) {
 
   useEffect(() => {
     if (dropdown === 'All' || dropdown === '') {
-      console.log('all');
       const getRecipes = async () => {
         const results = await fetchMeals('name', '');
         setRecipes(results.meals.slice(0, RECIPES_PER_PAGE));
       };
       getRecipes();
     } else {
-      console.log('area');
       const getRecipesByArea = async () => {
         const meals = await fetchByNationality(dropdown);
         setRecipes(meals.slice(0, RECIPES_PER_PAGE));
