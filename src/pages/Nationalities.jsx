@@ -17,7 +17,7 @@ function Nationalities({ history }) {
   useEffect(() => {
     const getNations = async () => {
       const nations = await fetchNationalities();
-      setNationalities(nations.map(({ strArea }) => strArea));
+      setNationalities(['All', ...nations.map(({ strArea }) => strArea)]);
     };
     getNations();
   }, []);
@@ -28,28 +28,26 @@ function Nationalities({ history }) {
     }
   }, [nationalities]);
 
-  // useEffect(() => {
-  //   if (dropdown !== '') {
-  //     const getRecipes = async () => {
-  //       const meals = await fetchByNatiolities(dropdown);
-  //       setRecipes(meals.slice(0, RECIPES_PER_PAGE));
-  //     };
-  //     getRecipes();
-  //   }
-  // }, [dropdown]);
-
   useEffect(() => {
-    const getRecipes = async () => {
-      const results = await fetchMeals('name', '');
-      setRecipes(results.meals.slice(0, RECIPES_PER_PAGE));
-    };
-    getRecipes();
-  }, []);
+    if (dropdown === 'All' || dropdown === '') {
+      console.log('all');
+      const getRecipes = async () => {
+        const results = await fetchMeals('name', '');
+        setRecipes(results.meals.slice(0, RECIPES_PER_PAGE));
+      };
+      getRecipes();
+    } else {
+      console.log('area');
+      const getRecipesByArea = async () => {
+        const meals = await fetchByNationality(dropdown);
+        setRecipes(meals.slice(0, RECIPES_PER_PAGE));
+      };
+      getRecipesByArea();
+    }
+  }, [dropdown]);
 
   const selectNation = async ({ target }) => {
     setDropdown(target.value);
-    const meals = await fetchByNationality(target.value);
-    setRecipes(meals.slice(0, RECIPES_PER_PAGE));
   };
 
   return (
