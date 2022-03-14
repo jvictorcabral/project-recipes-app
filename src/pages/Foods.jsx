@@ -10,7 +10,6 @@ import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
 import Header from '../components/Header';
 import { removeIngredient } from '../redux/actions';
-import SearchBar from '../components/SearchBar';
 
 function Foods({ location: { pathname }, history, ingredient, resetIngredient }) {
   const [meals, setMeals] = useState([]);
@@ -56,8 +55,6 @@ function Foods({ location: { pathname }, history, ingredient, resetIngredient })
   return (
     <div>
       <Header title="Foods" />
-      <SearchBar />
-      <CategoryFilters pathname={ pathname } />
       <CategoryFilters
         pathname={ pathname }
         handleClick={ selectCategory }
@@ -84,9 +81,10 @@ Foods.propTypes = {
   location: PropType.shape({
     pathname: PropType.string,
   }).isRequired,
-  history: PropType.objectOf(PropType.any).isRequired,
   ingredient: PropType.string.isRequired,
   resetIngredient: PropType.func.isRequired,
+  history: PropType.shape({
+    push: PropType.func.isRequired }).isRequired,
 };
 
 const mapStateToProps = ({ ingredient }) => ({

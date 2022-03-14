@@ -1,22 +1,21 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 // import { Router } from 'react-router-dom';
-// import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 // import { createMemoryHistory } from 'history';
 import renderWithRouter from '../renderWithRouter';
 import Header from '../components/Header';
-// import Login from '../pages/Login';
-// import Foods from '../pages/Foods';
-// import Drinks from '../pages/Drinks';
+import Login from '../pages/Login';
 import Explore from '../pages/Explore';
 import ExploreFoods from '../pages/ExploreFoods';
 import ExploreDrinks from '../pages/ExploreDrinks';
 import FoodsIngredients from '../pages/FoodsIngredients';
 import DrinksIngredients from '../pages/DrinksIngredients';
-import Nationalities from '../pages/Nacionalities';
+import Nationalities from '../pages/Nationalities';
 import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
+import App from '../App';
 
 describe('Test the component Header.jsx', () => {
   // req 9
@@ -35,24 +34,40 @@ describe('Test the component Header.jsx', () => {
     expect(searchBtn).toBeInTheDocument();
   });
   // req 10
-  // it('Test if Login.jsx does not contain a Header', () => {
-  //   renderWithRouter(<Login />);
+  it('Test if Login.jsx does not contain a Header', () => {
+    const { queryByText } = renderWithRouter(<Login />);
 
-  //   const loginBody = screen.getAllByRole('html');
+    expect(queryByText('Foods')).toBe(null);
+  });
 
-  //   expect(loginBody).not.toContainHTML('data-testid="page-title"');
-  // });
-  // it('Test if Header.jsx contains the correct icons on Foods.jsx', () => {
-  //   renderWithRouter(<Drinks />);
+  it('Test if Header.jsx contains the correct icons on Foods.jsx', () => {
+    const { history } = renderWithRouter(<App />);
 
-  //   const profileBtn = screen.getByTestId(profile);
-  //   const pageTitle = screen.getByTestId(title);
-  //   const searchBtn = screen.getByTestId(search);
+    history.push('/foods');
 
-  //   expect(profileBtn).not.toBeInTheDocument();
-  //   expect(pageTitle).toBeInTheDocument();
-  //   expect(searchBtn).toBeInTheDocument();
-  // });
+    const profileBtn = screen.getByTestId(profile);
+    const pageTitle = screen.getByTestId(title);
+    const searchBtn = screen.getByTestId(search);
+
+    expect(profileBtn).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Foods');
+    expect(searchBtn).toBeInTheDocument();
+  });
+
+  it('Test if Header.jsx contains the correct icons on Drinks.jsx', () => {
+    const { history } = renderWithRouter(<App />);
+
+    history.push('/drinks');
+
+    const profileBtn = screen.getByTestId(profile);
+    const pageTitle = screen.getByTestId(title);
+    const searchBtn = screen.getByTestId(search);
+
+    expect(profileBtn).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Drinks');
+    expect(searchBtn).toBeInTheDocument();
+  });
+
   it('Test if Header.jsx contains the correct icons on Explore.jsx', () => {
     renderWithRouter(<Explore />);
 
@@ -60,8 +75,9 @@ describe('Test the component Header.jsx', () => {
     const pageTitle = screen.getByTestId(title);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Explore');
   });
+
   it('Test if Header.jsx contains the correct icons on ExploreFoods.jsx', () => {
     renderWithRouter(<ExploreFoods />);
 
@@ -69,8 +85,9 @@ describe('Test the component Header.jsx', () => {
     const pageTitle = screen.getByTestId(title);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Explore Foods');
   });
+
   it('Test if Header.jsx contains the correct icons on ExploreDrinks.jsx', () => {
     renderWithRouter(<ExploreDrinks />);
 
@@ -78,8 +95,9 @@ describe('Test the component Header.jsx', () => {
     const pageTitle = screen.getByTestId(title);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Explore Drinks');
   });
+
   it('Test if Header.jsx contains the correct icons on FoodsIngredients.jsx', () => {
     renderWithRouter(<FoodsIngredients />);
 
@@ -87,8 +105,9 @@ describe('Test the component Header.jsx', () => {
     const pageTitle = screen.getByTestId(title);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Explore Ingredients');
   });
+
   it('Test if Header.jsx contains the correct icons on DrinksIngredients.jsx', () => {
     renderWithRouter(<DrinksIngredients />);
 
@@ -96,8 +115,9 @@ describe('Test the component Header.jsx', () => {
     const pageTitle = screen.getByTestId(title);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Explore Ingredients');
   });
+
   it('Test if Header.jsx contains the correct icons on Nationalities.jsx', () => {
     renderWithRouter(<Nationalities />);
 
@@ -106,9 +126,10 @@ describe('Test the component Header.jsx', () => {
     const searchBtn = screen.getByTestId(search);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Explore Nationalities');
     expect(searchBtn).toBeInTheDocument();
   });
+
   it('Test if Header.jsx contains the correct icons on Profile.jsx', () => {
     renderWithRouter(<Profile />);
 
@@ -116,8 +137,9 @@ describe('Test the component Header.jsx', () => {
     const pageTitle = screen.getByTestId(title);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Profile');
   });
+
   it('Test if Header.jsx contains the correct icons on DoneRecipes.jsx', () => {
     renderWithRouter(<DoneRecipes />);
 
@@ -125,8 +147,9 @@ describe('Test the component Header.jsx', () => {
     const pageTitle = screen.getByTestId(title);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Done Recipes');
   });
+
   it('Test if Header.jsx contains the correct icons on FavoriteRecipes.jsx', () => {
     renderWithRouter(<FavoriteRecipes />);
 
@@ -134,19 +157,21 @@ describe('Test the component Header.jsx', () => {
     const pageTitle = screen.getByTestId(title);
 
     expect(profileBtn).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
+    expect(pageTitle).toHaveTextContent('Favorite Recipes');
   });
   // req 11
 
-  // it('Test if the user is redirected to the /profile when they click on "perfil"', () => {
-  //   renderWithRouter(<Foods />);
+  it('Test if the user is redirected to the /profile when they click on "perfil"', () => {
+    const { history } = renderWithRouter(<App />);
 
-  //   const profileBtn = screen.getByTestId(profile);
+    history.push('/foods');
 
-  //   userEvent('click', profileBtn);
+    const profileBtn = screen.getByTestId(profile);
 
-  //   const profileH1 = screen.getByText(/Profile/i);
+    userEvent.click(profileBtn);
 
-  //   expect(profileH1).toBeInTheDocument();
-  // });
+    const profileH1 = screen.getByText(/Profile/i);
+
+    expect(profileH1).toBeInTheDocument();
+  });
 });

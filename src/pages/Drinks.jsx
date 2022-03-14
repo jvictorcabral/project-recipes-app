@@ -10,7 +10,6 @@ import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
 import Header from '../components/Header';
 import { removeIngredient } from '../redux/actions';
-import SearchBar from '../components/SearchBar';
 
 function Drinks({ location: { pathname }, history, ingredient, resetIngredient }) {
   const [drinks, setDrinks] = useState([]);
@@ -38,7 +37,7 @@ function Drinks({ location: { pathname }, history, ingredient, resetIngredient }
     if (categoryFilter !== '') {
       const filterByCategory = async () => {
         const results = await fetchByCategory(pathname, categoryFilter);
-        setDrinks(results.meals.slice(0, RECIPES_PER_PAGE));
+        setDrinks(results.drinks.slice(0, RECIPES_PER_PAGE));
       };
       filterByCategory();
     } else if (ingredient !== '') {
@@ -56,8 +55,6 @@ function Drinks({ location: { pathname }, history, ingredient, resetIngredient }
   return (
     <div>
       <Header title="Drinks" />
-      <SearchBar />
-      <CategoryFilters pathname={ pathname } />
       <CategoryFilters
         pathname={ pathname }
         handleClick={ selectCategory }
@@ -84,9 +81,10 @@ Drinks.propTypes = {
   location: PropType.shape({
     pathname: PropType.string,
   }).isRequired,
-  history: PropType.objectOf(PropType.any).isRequired,
   ingredient: PropType.string.isRequired,
   resetIngredient: PropType.func.isRequired,
+  history: PropType.shape({
+    push: PropType.func.isRequired }).isRequired,
 };
 
 const mapStateToProps = ({ ingredient }) => ({
