@@ -7,8 +7,10 @@ function Profile({ history }) {
   const [user, setUser] = useState('');
 
   const getUser = () => {
-    const userStorage = JSON.parse(localStorage.getItem('user'));
-    setUser(userStorage);
+    if (localStorage.getItem('user')) {
+      const userStorage = JSON.parse(localStorage.getItem('user'));
+      setUser(userStorage);
+    }
   };
 
   const removeProfile = () => {
