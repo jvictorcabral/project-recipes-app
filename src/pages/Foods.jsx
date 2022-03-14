@@ -47,7 +47,6 @@ function Foods({ location: { pathname }, history }) {
     <div>
       <Header title="Foods" />
       <SearchBar />
-      <CategoryFilters pathname={ pathname } />
       <CategoryFilters
         pathname={ pathname }
         handleClick={ selectCategory }
