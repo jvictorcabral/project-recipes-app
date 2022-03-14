@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropType from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import CategoryFilters from '../components/CategoryFilters';
 import Footer from '../components/Footer';
 import fetchMeals from '../services/mealsApi';
@@ -8,8 +9,9 @@ import RecipeCard from '../components/RecipeCard';
 import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
 import Header from '../components/Header';
+import { removeIngredient } from '../redux/actions';
 
-function Foods({ location: { pathname }, history }) {
+function Foods({ location: { pathname }, history, ingredient, resetIngredient }) {
   const [meals, setMeals] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
 
@@ -18,9 +20,10 @@ function Foods({ location: { pathname }, history }) {
     setMeals(results.meals.slice(0, RECIPES_PER_PAGE));
   };
 
-  useEffect(() => {
-    getMeals();
-  }, []);
+  const getMealsByIngredient = async () => {
+    const results = await fetchMeals('ingredient', ingredient);
+    setMeals(results.meals.slice(0, RECIPES_PER_PAGE));
+  };
 
   const selectCategory = ({ target: { name } }) => {
     if (categoryFilter === name) {
@@ -37,9 +40,16 @@ function Foods({ location: { pathname }, history }) {
         setMeals(results.meals.slice(0, RECIPES_PER_PAGE));
       };
       filterByCategory();
+    } else if (ingredient !== '') {
+      getMealsByIngredient();
     } else {
       getMeals();
     }
+
+    return (() => {
+      if (ingredient !== '') resetIngredient();
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryFilter, pathname]);
 
   return (
@@ -71,8 +81,18 @@ Foods.propTypes = {
   location: PropType.shape({
     pathname: PropType.string,
   }).isRequired,
+  ingredient: PropType.string.isRequired,
+  resetIngredient: PropType.func.isRequired,
   history: PropType.shape({
     push: PropType.func.isRequired }).isRequired,
 };
 
-export default Foods;
+const mapStateToProps = ({ ingredient }) => ({
+  ingredient,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetIngredient: () => dispatch(removeIngredient()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Foods);
