@@ -2,8 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import fetchRandomMeal from '../services/randomMeal';
 
 function ExploreFoods({ history }) {
+  const getRandomMeal = async () => {
+    const id = await fetchRandomMeal();
+    console.log(id);
+    history.push(`/foods/${id}`);
+  };
+
   const handleClick = ({ target }) => {
     history.push(`/explore/foods/${target.name}`);
   };
@@ -27,7 +34,11 @@ function ExploreFoods({ history }) {
       >
         By Nationality
       </button>
-      <button type="button" data-testid="explore-surprise">
+      <button
+        type="button"
+        data-testid="explore-surprise"
+        onClick={ getRandomMeal }
+      >
         Surprise me!
       </button>
       <Footer history={ history } />
