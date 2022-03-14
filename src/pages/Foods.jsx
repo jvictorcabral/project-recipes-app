@@ -8,7 +8,6 @@ import RecipeCard from '../components/RecipeCard';
 import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
 
 function Foods({ location: { pathname }, history }) {
   const [meals, setMeals] = useState([]);
@@ -46,8 +45,6 @@ function Foods({ location: { pathname }, history }) {
   return (
     <div>
       <Header title="Foods" />
-      <SearchBar />
-      <CategoryFilters pathname={ pathname } />
       <CategoryFilters
         pathname={ pathname }
         handleClick={ selectCategory }
@@ -74,7 +71,8 @@ Foods.propTypes = {
   location: PropType.shape({
     pathname: PropType.string,
   }).isRequired,
-  history: PropType.objectOf(PropType.any).isRequired,
+  history: PropType.shape({
+    push: PropType.func.isRequired }).isRequired,
 };
 
 export default Foods;
