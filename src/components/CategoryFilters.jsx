@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropType from 'prop-types';
 import fetchCategories from '../services/fetchCategories';
+import '../styles/CategoryFilters.css';
 
 function CategoryFilters({ pathname, handleClick, categoryFilter }) {
   const [categories, setCategories] = useState([]);
@@ -17,7 +18,7 @@ function CategoryFilters({ pathname, handleClick, categoryFilter }) {
   }, [pathname]);
 
   return (
-    <div>
+    <nav className="categories-nav">
       {categories.map((category) => (
         <button
           key={ category }
@@ -25,7 +26,8 @@ function CategoryFilters({ pathname, handleClick, categoryFilter }) {
           data-testid={ `${category}-category-filter` }
           name={ category }
           onClick={ handleClick }
-          style={ category === categoryFilter ? { backgroundColor: 'gray' } : {} }
+          className={ category === categoryFilter
+            ? 'category-btn selected' : 'category-btn' }
         >
           {category}
         </button>
@@ -35,11 +37,12 @@ function CategoryFilters({ pathname, handleClick, categoryFilter }) {
         data-testid="All-category-filter"
         name=""
         onClick={ handleClick }
-        style={ categoryFilter === '' ? { backgroundColor: 'gray' } : {} }
+        className={ categoryFilter === ''
+          ? 'category-btn selected' : 'category-btn' }
       >
         All
       </button>
-    </div>
+    </nav>
   );
 }
 

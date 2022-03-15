@@ -1,6 +1,6 @@
 import React from 'react';
-import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/App.css';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Foods from './pages/Foods';

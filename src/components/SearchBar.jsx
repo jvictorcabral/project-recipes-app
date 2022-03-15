@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import api from '../services/mealsApi';
+import '../styles/SearchBar.css';
 
 const state = {};
 
@@ -27,18 +30,18 @@ function SearchBar() {
   [state.option, state.setOption] = useState('');
 
   return (
-    <form>
+    <form className="search-form">
       <div>
-        <input
+        <Form.Control
           type="text"
           value={ state.searchText }
           onChange={ onChangeSearchText }
-          placeholder="Search Reciper"
+          placeholder="Search Recipe"
           data-testid="search-input"
         />
       </div>
 
-      <div>
+      <div className="radio-btn">
         <label htmlFor="ingredient">
           <input
             id="ingredient"
@@ -75,15 +78,16 @@ function SearchBar() {
           First Letter
         </label>
       </div>
-
       <div>
-        <button
+        <Button
           type="submit"
           onClick={ getRequest }
           data-testid="exec-search-btn"
+          className="search-btn"
+          variant="outline-light"
         >
           Search
-        </button>
+        </Button>
       </div>
     </form>
   );

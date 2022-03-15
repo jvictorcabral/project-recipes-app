@@ -21,6 +21,7 @@ function Footer({ history }) {
         onClick={ () => history.push('/explore') }
         data-testid="explore-bottom-btn"
         src={ exploreIcon }
+        className="middle-btn"
       >
         <img src={ exploreIcon } alt="explore" />
       </button>

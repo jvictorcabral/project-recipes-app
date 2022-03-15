@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import '../styles/Header.css';
 
 function Header(props) {
   const [searchClicked, setSearchClicked] = useState(false);
@@ -19,29 +20,31 @@ function Header(props) {
 
   return (
     <header>
-      <Link to="/profile">
-        <img
-          src={ profile }
-          alt="profile"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h1 data-testid="page-title">{ title }</h1>
-      { (title === 'Foods'
-        || title === 'Explore Nationalities'
-        || title === 'Drinks')
-        && (
-          <button
-            onClick={ validateSearch }
-            type="button"
-          >
-            <img
-              src={ search }
-              alt="search"
-              data-testid="search-top-btn"
-            />
-          </button>
-        ) }
+      <div className="main-header">
+        <Link to="/profile">
+          <img
+            src={ profile }
+            alt="profile"
+            data-testid="profile-top-btn"
+          />
+        </Link>
+        <h1 data-testid="page-title">{ title }</h1>
+        { (title === 'Foods'
+          || title === 'Explore Nationalities'
+          || title === 'Drinks')
+          && (
+            <button
+              onClick={ validateSearch }
+              type="button"
+            >
+              <img
+                src={ search }
+                alt="search"
+                data-testid="search-top-btn"
+              />
+            </button>
+          ) }
+      </div>
       { (searchClicked) && (
         <SearchBar />
       ) }

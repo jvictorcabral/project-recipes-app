@@ -1,0 +1,26 @@
+body {
+  background-color: #fdf1d6;
+}
+
+.recipe-card {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.74);
+  color: #680715;
+  display: flex;
+  flex-flow: column;
+  margin: 7%;
+}
+
+.recipe-card img {
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 2%;
+  width: 100%;
+}
+
+.section-foods {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-top: 5%;
+}

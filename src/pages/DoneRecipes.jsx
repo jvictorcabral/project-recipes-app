@@ -1,27 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import DoneRecipeCard from '../components/DoneRecipeCard';
 
 function DoneRecipes() {
+  const [filterAllRecipes, setFilterAllRecipes] = useState(true);
+  const [filterAllFoods, setFilterAllFoods] = useState(false);
+  const [filterAllDrinks, setFilterAllDrinks] = useState(false);
+
+  const doneRecipes = localStorage.getItem('doneRecipes');
+  const doneRecipesArr = JSON.parse(doneRecipes);
+  const filterFoodsArr = doneRecipesArr.filter((foods) => (
+    foods.type === 'meals'
+  ));
+  const filterDrinksArr = doneRecipesArr.filter((drinks) => (
+    drinks.type === 'cocktails'
+  ));
+
   function filterAll() {
-    console.log('function yet to be created :)');
-    // map doneRecipes array using recipeCard.jsx
-    // do the same with filterFoods and filterDrinks,
-    // but you'll have to map only the correct items in those cases
-    // O imagem do card de receita deve ter o atributo data-testid="${index}-horizontal-image";
-    // O texto da categoria da receita deve ter o atributo data-testid="${index}-horizontal-top-text";
-    // O texto do nome da receita deve ter o atributo data-testid="${index}-horizontal-name";
-    // O texto da data que a receita foi feita deve ter o atributo data-testid="${index}-horizontal-done-date";
-    // O elemento de compartilhar a receita deve ter o atributo data-testid="${index}-horizontal-share-btn";
-    // As tags da receita devem possuir o atributo data-testid=${index}-${tagName}-horizontal-tag;
+    setFilterAllFoods(false);
+    setFilterAllDrinks(false);
+    setFilterAllRecipes(true);
+    console.log(doneRecipesArr);
   }
 
   function filterFoods() {
-    console.log('function yet to be created as well :)');
+    setFilterAllFoods(true);
+    setFilterAllDrinks(false);
+    setFilterAllRecipes(false);
+    console.log(filterFoodsArr);
   }
 
   function filterDrinks() {
-    console.log('function yet to be created, too :)');
+    setFilterAllFoods(false);
+    setFilterAllDrinks(true);
+    setFilterAllRecipes(false);
+    console.log(filterDrinksArr);
   }
+
+  useEffect(() => {
+  }, [filterAllRecipes, filterAllFoods, filterAllDrinks]);
   return (
     <div>
       <Header title="Done Recipes" />
@@ -46,6 +63,61 @@ function DoneRecipes() {
       >
         Drinks
       </button>
+      { filterAllRecipes
+        && doneRecipesArr.map((recipe, key) => (recipe.type === 'meals'
+          ? (
+            <DoneRecipeCard
+              data-testid="filter-by-all-btn"
+              key={ key }
+              img={ recipe.image }
+              name={ recipe.name }
+              index={ key }
+              category={ recipe.category }
+              doneDate={ recipe.doneDate }
+              tagName={ recipe.tags }
+              nationality={ recipe.nationality }
+            />)
+          : (
+            <DoneRecipeCard
+              data-testid="filter-by-drink-btn"
+              key={ key }
+              img={ recipe.image }
+              name={ recipe.name }
+              index={ key }
+              category={ recipe.category }
+              doneDate={ recipe.doneDate }
+              tagName={ recipe.tags }
+              alcoholicOrNot={ recipe.alcoholicOrNot }
+            />
+          )
+        ))}
+      { filterAllFoods
+        && filterFoodsArr.map((recipe, key) => (
+          <DoneRecipeCard
+            data-testid="filter-by-food-btn"
+            key={ key }
+            img={ recipe.image }
+            name={ recipe.name }
+            index={ key }
+            category={ recipe.category }
+            doneDate={ recipe.doneDate }
+            tagName={ recipe.tags }
+            nationality={ recipe.nationality }
+          />
+        ))}
+      { filterAllDrinks
+        && filterDrinksArr.map((recipe, key) => (
+          <DoneRecipeCard
+            data-testid="filter-by-drink-btn"
+            key={ key }
+            img={ recipe.image }
+            name={ recipe.name }
+            index={ key }
+            category={ recipe.category }
+            doneDate={ recipe.doneDate }
+            tagName={ recipe.tags }
+          />
+        ))}
     </div>
   );
 }
