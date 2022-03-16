@@ -3,9 +3,8 @@ import Header from '../components/Header';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 
 function DoneRecipes() {
-  const [filterAllRecipes, setFilterAllRecipes] = useState(true);
-  const [filterAllFoods, setFilterAllFoods] = useState(false);
-  const [filterAllDrinks, setFilterAllDrinks] = useState(false);
+  const [filterAllFoods, setFilterAllFoods] = useState(true);
+  const [filterAllDrinks, setFilterAllDrinks] = useState(true);
 
   const doneRecipes = localStorage.getItem('doneRecipes');
   const doneRecipesArr = JSON.parse(doneRecipes);
@@ -17,28 +16,25 @@ function DoneRecipes() {
   ));
 
   function filterAll() {
-    setFilterAllFoods(false);
-    setFilterAllDrinks(false);
-    setFilterAllRecipes(true);
+    setFilterAllFoods(true);
+    setFilterAllDrinks(true);
     console.log(doneRecipesArr);
   }
 
   function filterFoods() {
     setFilterAllFoods(true);
     setFilterAllDrinks(false);
-    setFilterAllRecipes(false);
     console.log(filterFoodsArr);
   }
 
   function filterDrinks() {
     setFilterAllFoods(false);
     setFilterAllDrinks(true);
-    setFilterAllRecipes(false);
     console.log(filterDrinksArr);
   }
 
   useEffect(() => {
-  }, [filterAllRecipes, filterAllFoods, filterAllDrinks]);
+  }, [filterAllFoods, filterAllDrinks]);
   return (
     <div>
       <Header title="Done Recipes" />
@@ -63,34 +59,6 @@ function DoneRecipes() {
       >
         Drinks
       </button>
-      { filterAllRecipes
-        && doneRecipesArr.map((recipe, key) => (recipe.type === 'meals'
-          ? (
-            <DoneRecipeCard
-              data-testid="filter-by-all-btn"
-              key={ key }
-              img={ recipe.image }
-              name={ recipe.name }
-              index={ key }
-              category={ recipe.category }
-              doneDate={ recipe.doneDate }
-              tagName={ recipe.tags }
-              nationality={ recipe.nationality }
-            />)
-          : (
-            <DoneRecipeCard
-              data-testid="filter-by-drink-btn"
-              key={ key }
-              img={ recipe.image }
-              name={ recipe.name }
-              index={ key }
-              category={ recipe.category }
-              doneDate={ recipe.doneDate }
-              tagName={ recipe.tags }
-              alcoholicOrNot={ recipe.alcoholicOrNot }
-            />
-          )
-        ))}
       { filterAllFoods
         && filterFoodsArr.map((recipe, key) => (
           <DoneRecipeCard
@@ -103,6 +71,8 @@ function DoneRecipes() {
             doneDate={ recipe.doneDate }
             tagName={ recipe.tags }
             nationality={ recipe.nationality }
+            url={ `http://localhost:3000/foods/${recipe.id}` }
+            url2={ `/foods/${recipe.id}` }
           />
         ))}
       { filterAllDrinks
@@ -113,9 +83,9 @@ function DoneRecipes() {
             img={ recipe.image }
             name={ recipe.name }
             index={ key }
-            category={ recipe.category }
             doneDate={ recipe.doneDate }
-            tagName={ recipe.tags }
+            url={ `http://localhost:3000/drinks/${recipe.id}` }
+            url2={ `/drinks/${recipe.id}` }
           />
         ))}
     </div>

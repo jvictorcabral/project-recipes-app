@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropType from 'prop-types';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneRecipeCard({
@@ -9,36 +10,40 @@ function DoneRecipeCard({
   category,
   doneDate,
   url,
+  url2,
   tagName,
   nationality,
   alcoholicOrNot,
 }) {
   const [copyLink, setCopyLink] = useState(false);
 
+  const splitTags = tagName ? tagName.split(',')[0] : tagName;
+
   const shareRecipe = () => {
     navigator.clipboard.writeText(url);
     setCopyLink(true);
   };
+
   return (
     <div data-testid={ `${index}-recipe-card` }>
-      { tagName
-      && (
-        <h4
-          data-testid={ `${index}-${tagName}-horizontal-tag` }
-        >
-          {tagName}
-        </h4>)}
-      { nationality && <h4>{nationality}</h4>}
-      { alcoholicOrNot && <h4>{alcoholicOrNot}</h4>}
+      <Link to={ url2 }>
+        <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
+        <img
+          src={ img }
+          alt={ name }
+          style={ { width: '15%' } }
+          data-testid={ `${index}-horizontal-image` }
+        />
+      </Link>
+      <h4
+        data-testid={ `${index}-${splitTags}-horizontal-tag` }
+      >
+        {tagName}
+      </h4>
       <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
-      <img
-        src={ img }
-        alt={ name }
-        style={ { width: '15%' } }
-        data-testid={ `${index}-horizontal-image` }
-      />
-      <h2 data-testid={ `${index}-horizontal-name` }>{name}</h2>
-      <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
+      <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+      { alcoholicOrNot && <p>{alcoholicOrNot}</p>}
+      { nationality && <p>{nationality}</p>}
       <button
         type="button"
         data-testid={ `${index}-horizontal-share-btn` }
@@ -61,6 +66,7 @@ DoneRecipeCard.propTypes = {
   category: PropType.string,
   doneDate: PropType.string,
   url: PropType.string,
+  url2: PropType.string,
   tagName: PropType.string,
   nationality: PropType.string,
   alcoholicOrNot: PropType.string,
