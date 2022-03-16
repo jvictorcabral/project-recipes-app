@@ -9,6 +9,7 @@ import RecipeCard from '../components/RecipeCard';
 import fetchByCategory from '../services/fetchByCategory';
 import { RECIPES_PER_PAGE } from '../constants/constants';
 import Header from '../components/Header';
+import '../styles/Foods.css';
 import { removeIngredient } from '../redux/actions';
 
 function Foods({ location: { pathname }, history, ingredient, resetIngredient }) {
@@ -60,18 +61,20 @@ function Foods({ location: { pathname }, history, ingredient, resetIngredient })
         handleClick={ selectCategory }
         categoryFilter={ categoryFilter }
       />
-      {meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
-        <Link to={ `${pathname}/${idMeal}` } key={ idMeal }>
-          <RecipeCard
-            img={ strMealThumb }
-            name={ strMeal }
-            index={ index }
-            handleClick={ selectCategory }
-            recipeId={ idMeal }
-            pathname={ pathname }
-          />
-        </Link>
-      ))}
+      <section className="section-foods">
+        {meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
+          <Link to={ `${pathname}/${idMeal}` } key={ idMeal }>
+            <RecipeCard
+              img={ strMealThumb }
+              name={ strMeal }
+              index={ index }
+              handleClick={ selectCategory }
+              recipeId={ idMeal }
+              pathname={ pathname }
+            />
+          </Link>
+        ))}
+      </section>
       <Footer history={ history } />
     </div>
   );

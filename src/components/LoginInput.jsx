@@ -25,13 +25,13 @@ export default function LoginInput() {
   }
 
   return (
-    <form>
+    <form className="login-input">
       { redirect && <Redirect to="/foods" /> }
       <label htmlFor="email">
         Email
         <input
           data-testid="email-input"
-          placeholder="Ex: ada@lovelace.com"
+          placeholder="Ex: your@email.com"
           type="email"
           id="email"
           onChange={ ({ target }) => setUserEmail(target.value) }
@@ -41,7 +41,7 @@ export default function LoginInput() {
         Password
         <input
           data-testid="password-input"
-          placeholder="Ex: mypassword123"
+          placeholder="Ex: yourPassword123"
           type="password"
           id="password"
           onChange={ ({ target }) => setUserPassword(target.value) }

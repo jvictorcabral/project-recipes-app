@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import '../styles/SearchBar.css';
 import { Redirect, useLocation } from 'react-router-dom';
 import drinksApi from '../services/drinksApi';
 import mealsApi from '../services/mealsApi';
@@ -52,18 +55,17 @@ function render() {
             </div>
           )
           : (
-            <form>
+            <form className="search-form">
               <div>
-                <input
+                <Form.Control
                   type="text"
                   value={ state.searchText }
                   onChange={ onChangeSearchText }
-                  placeholder="Search Reciper"
+                  placeholder="Search Recipe"
                   data-testid="search-input"
                 />
               </div>
-
-              <div>
+              <div className="radio-btn">
                 <label htmlFor="ingredient">
                   <input
                     id="ingredient"
@@ -87,7 +89,6 @@ function render() {
                   />
                   Name
                 </label>
-
                 <label htmlFor="firstLetter">
                   <input
                     id="firstLetter"
@@ -100,15 +101,16 @@ function render() {
                   First Letter
                 </label>
               </div>
-
               <div>
-                <button
+                <Button
                   type="submit"
                   onClick={ getRequest }
                   data-testid="exec-search-btn"
+                  className="search-btn"
+                  variant="outline-light"
                 >
                   Search
-                </button>
+                </Button>
               </div>
             </form>
           )

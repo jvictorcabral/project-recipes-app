@@ -1,0 +1,20 @@
+.category-btn {
+  background-color: #d8b6a4;
+  border: solid 0.3px rgba(0, 0, 0, 0.39);
+  font-size: 1.1rem;
+  padding: 2.5%;
+}
+
+.selected {
+  background-color: #a5897b;
+}
+
+.categories-nav {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: 50% 50%;
+}
+
+body {
+  background-color: #fdf1d6;
+}

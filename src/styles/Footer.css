@@ -1,7 +1,22 @@
 .footer {
   bottom: 0;
   display: grid;
-  grid-template-columns: repeat(3, 33.333%);
+  grid-template-columns: repeat(3, auto);
   position: fixed;
   width: 100vw;
+}
+
+.footer button {
+  background-color: #91091e;
+  border: none;
+  padding: 8%;
+}
+
+footer .middle-btn {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.footer img {
+  filter: invert();
 }
