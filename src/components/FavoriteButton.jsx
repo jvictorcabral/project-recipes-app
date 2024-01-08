@@ -69,6 +69,7 @@ function FavoriteButton({ recipe, pathname }) {
     <button
       type="button"
       data-testid="favorite-btn"
+      className="favorite-btn"
       onClick={ removeOrAddFavoriteRecipe }
       src={
         isFavorite ? blackHeartIcon : whiteHeartIcon

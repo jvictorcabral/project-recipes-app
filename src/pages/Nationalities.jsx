@@ -8,6 +8,7 @@ import fetchByNationality from '../services/byNationality';
 import fetchMeals from '../services/mealsApi';
 import RecipeCard from '../components/RecipeCard';
 import { RECIPES_PER_PAGE } from '../constants/constants';
+import '../styles/Nationalities.css';
 
 function Nationalities({ history }) {
   const [nationalities, setNationalities] = useState([]);
@@ -51,8 +52,9 @@ function Nationalities({ history }) {
   return (
     <main>
       <Header title="Explore Nationalities" />
-      <section>
+      <section className="select">
         <select
+          className="list-choice"
           data-testid="explore-by-nationality-dropdown"
           value={ dropdown }
           onChange={ selectNation }
@@ -60,6 +62,7 @@ function Nationalities({ history }) {
           {nationalities.map((nation) => (
             <option
               key={ nation }
+              className="list-choice-objects"
               data-testid={ `${nation}-option` }
               value={ nation }
             >
@@ -68,7 +71,7 @@ function Nationalities({ history }) {
           ))}
         </select>
       </section>
-      <section>
+      <section className="section-foods">
         {recipes.map(({ idMeal, strMealThumb, strMeal }, index) => (
           <Link to={ `/foods/${idMeal}` } key={ idMeal }>
             <RecipeCard

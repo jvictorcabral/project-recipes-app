@@ -60,18 +60,20 @@ function Drinks({ location: { pathname }, history, ingredient, resetIngredient }
         handleClick={ selectCategory }
         categoryFilter={ categoryFilter }
       />
-      {drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
-        <Link to={ `${pathname}/${idDrink}` } key={ idDrink }>
-          <RecipeCard
-            key={ idDrink }
-            img={ strDrinkThumb }
-            name={ strDrink }
-            index={ index }
-            recipeId={ idDrink }
-            pathname={ pathname }
-          />
-        </Link>
-      ))}
+      <section className="section-foods">
+        {drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
+          <Link to={ `${pathname}/${idDrink}` } key={ idDrink }>
+            <RecipeCard
+              key={ idDrink }
+              img={ strDrinkThumb }
+              name={ strDrink }
+              index={ index }
+              recipeId={ idDrink }
+              pathname={ pathname }
+            />
+          </Link>
+        ))}
+      </section>
       <Footer history={ history } />
     </div>
   );

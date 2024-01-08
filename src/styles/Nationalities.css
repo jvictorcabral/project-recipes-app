@@ -1,0 +1,35 @@
+.select {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+.list-choice {
+  border: 0;
+  padding: 10px;
+  text-align: center;
+  width: 50vw;
+}
+
+.list-choice-objects {
+  padding: 3px;
+}
+
+.list-choice-objects:hover {
+  background-color: #91091e;
+}
+
+.list-choice::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* .list-choice::-webkit-scrollbar-track {
+  background: black;
+} */
+
+/* Handle */
+.list-choice::-webkit-scrollbar-thumb {
+  background: #91091e;
+  border-radius: 10px;
+}

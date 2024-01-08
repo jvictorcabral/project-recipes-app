@@ -1,0 +1,53 @@
+.profile h2 {
+  font-size: 1.8em;
+  text-align: center;
+}
+
+.profile-btn {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  height: 68vh;
+  justify-content: center;
+}
+
+.profile-btn button {
+  background-color: #91091e;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 7.5px 0;
+  width: 90vw;
+}
+
+@media screen and ( max-width : 320px ) {
+
+  .profile h2 {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .profile-btn button {
+    font-size: 1.5rem;
+    padding: 15px 0;
+  }
+}
+
+@media screen and ( min-width : 1280px ) {
+
+  /* .profile-btn {
+    flex-direction: row;
+    gap: 0;
+    justify-content: space-evenly;
+  } */
+
+  .profile-btn button {
+    padding: 15px 0;
+    width: 40vw;
+  }
+}

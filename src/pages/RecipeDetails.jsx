@@ -29,27 +29,29 @@ function RecipeDetails({ match: { params: { id } }, location: { pathname }, hist
   }, [pathname]);
 
   return (
-    <main>
+    <section className="recipe-details">
       <InformationFoodOrDrink recipe={ recipe } />
-      <FavoriteButton
-        pathname={ pathname }
-        recipe={ recipe }
-      />
-      <ShareButton url={ window.location.href } />
       <IngredientsQuantity recipe={ recipe } />
+      <div className="fav_share-btn">
+        <FavoriteButton
+          pathname={ pathname }
+          recipe={ recipe }
+        />
+        <ShareButton url={ window.location.href } />
+      </div>
       {strYoutube && (
         <YoutubeVideo video={ strYoutube } />
       )}
-      <CarouselItems
-        pathname={ pathname }
-      />
       <StartButtonRecipe
         nameRecipe={ strMeal || strDrink }
         idRecipe={ idMeal || idDrink }
         history={ history }
         pathname={ pathname }
       />
-    </main>
+      <CarouselItems
+        pathname={ pathname }
+      />
+    </section>
   );
 }
 export default RecipeDetails;

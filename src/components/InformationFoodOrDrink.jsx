@@ -6,16 +6,28 @@ function InformationFoodOrDrink({ recipe: {
   strAlcoholic, strCategory, strInstructions,
 } }) {
   return (
-    <section>
+    <section className="initial-recipe">
       <img
         data-testid="recipe-photo"
         src={ strMealThumb || strDrinkThumb }
         alt={ strMeal || strDrink }
-        width="360px"
+        className="img-recipe"
       />
-      <h1 data-testid="recipe-title">{ strMeal || strDrink }</h1>
-      <h2 data-testid="recipe-category">{ strAlcoholic || strCategory }</h2>
-      <p data-testid="instructions">{ strInstructions }</p>
+      <div className="initial-content">
+        <h1
+          data-testid="recipe-title"
+          className="title-recipe"
+        >
+          { strMeal || strDrink }
+        </h1>
+        <h2
+          data-testid="recipe-category"
+          className="type-recipe"
+        >
+          { strAlcoholic || strCategory }
+        </h2>
+        <p data-testid="instructions">{ strInstructions }</p>
+      </div>
     </section>
   );
 }

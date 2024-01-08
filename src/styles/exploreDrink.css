@@ -1,0 +1,41 @@
+.explore_drink-btn {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  height: 86vh;
+  justify-content: center;
+}
+
+.explore_drink-btn button {
+  background-color: #91091e;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 7.5px 0;
+  width: 90vw;
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .explore_drink-btn button {
+    font-size: 1.5rem;
+    padding: 15px 0;
+  }
+}
+
+@media screen and ( min-width : 1280px ) {
+
+  .explore_drink-btn {
+    flex-direction: row;
+    gap: 0;
+    justify-content: space-evenly;
+  }
+
+  .explore_drink-btn button {
+    padding: 15px 0;
+    width: 40vw;
+  }
+}

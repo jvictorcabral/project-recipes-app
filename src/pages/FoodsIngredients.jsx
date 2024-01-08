@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import fetchIngredients from '../services/ingredients';
 import { getIngredient } from '../redux/actions';
+import '../styles/Ingredients.css';
 
 function FoodsIngredients({ history, location: { pathname }, setIngredient }) {
   const [ingredients, setIngredients] = useState([]);
@@ -20,28 +21,32 @@ function FoodsIngredients({ history, location: { pathname }, setIngredient }) {
 
   useEffect(() => {
     getIngredients();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <main>
       <Header title="Explore Ingredients" />
-      {ingredients.map(({ strIngredient }, index) => (
-        <Link
-          to="/foods"
-          onClick={ () => setIngredient(strIngredient) }
-          data-testid={ `${index}-card-name` }
-          key={ strIngredient }
-        >
-          <p data-testid={ `${index}-ingredient-card` }>
-            {strIngredient}
-          </p>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
-            alt={ strIngredient }
-          />
-        </Link>
-      ))}
+      <div className="ingredients-cards">
+        {ingredients.map(({ strIngredient }, index) => (
+          <Link
+            to="/foods"
+            onClick={ () => setIngredient(strIngredient) }
+            className="ingredients-card"
+            data-testid={ `${index}-card-name` }
+            key={ strIngredient }
+          >
+            <p data-testid={ `${index}-ingredient-card` }>
+              {strIngredient}
+            </p>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+              alt={ strIngredient }
+            />
+          </Link>
+        ))}
+      </div>
       <Footer history={ history } />
     </main>
   );

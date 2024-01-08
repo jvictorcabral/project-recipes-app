@@ -33,7 +33,7 @@
   color: white;
   font-size: 1.2rem;
   font-weight: 700;
-  padding: 7.5px 20px;
+  padding: 7.5px 80px;
 }
 
 .login-input button:disabled {
@@ -48,4 +48,55 @@
   display: flex;
   height: 100vh;
   justify-content: center;
+}
+
+@media ( min-width : 640px ) {
+
+  .login-input {
+    width: 75vw;
+  }
+
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .login-input {
+    width: 70vw;
+  }
+
+}
+
+@media screen and ( min-width : 1024px ) {
+
+  .login-input {
+    width: 60vw;
+  }
+
+  .login-input label {
+    font-size: 1.4rem;
+    width: 80%;
+  }
+
+}
+
+@media screen and ( min-width : 1280px ) {
+
+  .login-input {
+    padding: 5% 0;
+    width: 50vw;
+  }
+
+  .login-input label {
+    margin-bottom: 5%;
+  }
+
+}
+
+@media screen and ( min-width : 1536px ) {
+
+  .login-input {
+    margin: 3% 0;
+    width: 45vw;
+  }
+
 }

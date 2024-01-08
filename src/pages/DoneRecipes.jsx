@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import DoneRecipeCard from '../components/DoneRecipeCard';
+import '../styles/DoneRecipes.css';
 
 function DoneRecipes() {
   const [filterAllFoods, setFilterAllFoods] = useState(true);
@@ -24,13 +25,11 @@ function DoneRecipes() {
   function filterFoods() {
     setFilterAllFoods(true);
     setFilterAllDrinks(false);
-    console.log(filterFoodsArr);
   }
 
   function filterDrinks() {
     setFilterAllFoods(false);
     setFilterAllDrinks(true);
-    console.log(filterDrinksArr);
   }
 
   useEffect(() => {
@@ -38,56 +37,60 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" />
-      <button
-        data-testid="filter-by-all-btn"
-        type="button"
-        onClick={ filterAll }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-food-btn"
-        type="button"
-        onClick={ filterFoods }
-      >
-        Food
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        type="button"
-        onClick={ filterDrinks }
-      >
-        Drinks
-      </button>
-      { filterAllFoods
-        && filterFoodsArr.map((recipe, key) => (
-          <DoneRecipeCard
-            data-testid="filter-by-food-btn"
-            key={ key }
-            img={ recipe.image }
-            name={ recipe.name }
-            index={ key }
-            category={ recipe.category }
-            doneDate={ recipe.doneDate }
-            tagName={ recipe.tags }
-            nationality={ recipe.nationality }
-            url={ `http://localhost:3000/foods/${recipe.id}` }
-            url2={ `/foods/${recipe.id}` }
-          />
-        ))}
-      { filterAllDrinks
-        && filterDrinksArr.map((recipe, key) => (
-          <DoneRecipeCard
-            data-testid="filter-by-drink-btn"
-            key={ key }
-            img={ recipe.image }
-            name={ recipe.name }
-            index={ key }
-            doneDate={ recipe.doneDate }
-            url={ `http://localhost:3000/drinks/${recipe.id}` }
-            url2={ `/drinks/${recipe.id}` }
-          />
-        ))}
+      <div className="done_recipes-btn">
+        <button
+          data-testid="filter-by-all-btn"
+          type="button"
+          onClick={ filterAll }
+        >
+          All
+        </button>
+        <button
+          data-testid="filter-by-food-btn"
+          type="button"
+          onClick={ filterFoods }
+        >
+          Food
+        </button>
+        <button
+          data-testid="filter-by-drink-btn"
+          type="button"
+          onClick={ filterDrinks }
+        >
+          Drinks
+        </button>
+      </div>
+      <div className="container">
+        { filterAllFoods
+          && filterFoodsArr.map((recipe, key) => (
+            <DoneRecipeCard
+              data-testid="filter-by-food-btn"
+              key={ key }
+              img={ recipe.image }
+              name={ recipe.name }
+              index={ key }
+              category={ recipe.category }
+              doneDate={ recipe.doneDate }
+              tagName={ recipe.tags }
+              nationality={ recipe.nationality }
+              url={ `http://localhost:3000/foods/${recipe.id}` }
+              url2={ `/foods/${recipe.id}` }
+            />
+          ))}
+        { filterAllDrinks
+          && filterDrinksArr.map((recipe, key) => (
+            <DoneRecipeCard
+              data-testid="filter-by-drink-btn"
+              key={ key }
+              img={ recipe.image }
+              name={ recipe.name }
+              index={ key }
+              doneDate={ recipe.doneDate }
+              url={ `http://localhost:3000/drinks/${recipe.id}` }
+              url2={ `/drinks/${recipe.id}` }
+            />
+          ))}
+      </div>
     </div>
   );
 }

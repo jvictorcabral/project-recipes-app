@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import fetchIngredients from '../services/ingredients';
 import { getIngredient } from '../redux/actions';
+import '../styles/Ingredients.css';
 
 function DrinksIngredients({ history, location: { pathname }, setIngredient }) {
   const [ingredients, setIngredients] = useState([]);
@@ -26,23 +27,26 @@ function DrinksIngredients({ history, location: { pathname }, setIngredient }) {
   return (
     <main>
       <Header title="Explore Ingredients" />
-      {ingredients.map(({ strIngredient1 }, index) => (
-        <Link
-          to="/drinks"
-          onClick={ () => setIngredient(strIngredient1) }
-          data-testid={ `${index}-card-name` }
-          key={ strIngredient1 }
-        >
-          <p data-testid={ `${index}-ingredient-card` }>
-            {strIngredient1}
-          </p>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
-            alt={ strIngredient1 }
-          />
-        </Link>
-      ))}
+      <div className="ingredients-cards">
+        {ingredients.map(({ strIngredient1 }, index) => (
+          <Link
+            to="/drinks"
+            onClick={ () => setIngredient(strIngredient1) }
+            className="ingredients-card"
+            data-testid={ `${index}-card-name` }
+            key={ strIngredient1 }
+          >
+            <p data-testid={ `${index}-ingredient-card` }>
+              {strIngredient1}
+            </p>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+              alt={ strIngredient1 }
+            />
+          </Link>
+        ))}
+      </div>
       <Footer history={ history } />
     </main>
   );

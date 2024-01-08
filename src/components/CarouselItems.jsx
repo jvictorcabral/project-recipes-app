@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
 import fetchRecipesRecomendations from '../services/recomendations';
+import '../styles/CarouselItems.css';
 
 function CarouselItems({ pathname }) {
   const [recipesRecomendation, setRecipesRecomendation] = useState([]);
@@ -39,6 +40,7 @@ function CarouselItems({ pathname }) {
               <img
                 src={ recomendation.strMealThumb || recomendation.strDrinkThumb }
                 alt={ recomendation.strMeal || recomendation.strDrink }
+                className="carousel-img"
                 style={ { width: '40%' } }
               />
               <h2

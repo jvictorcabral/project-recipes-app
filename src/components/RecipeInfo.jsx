@@ -44,22 +44,34 @@ function RecipeInfo({
   };
 
   return (
-    <div>
-      <img
-        data-testid="recipe-photo"
-        src={ strMealThumb || strDrinkThumb }
-        alt={ strMeal || strDrink }
-        width="360px"
-      />
-      <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
-      <FavoriteButton
-        pathname={ pathname }
-        recipe={ recipe }
-      />
-      <ShareButton url={ url } />
-      <h2 data-testid="recipe-category">{strCategory}</h2>
-      {strAlcoholic && <h3>{strAlcoholic}</h3>}
-      <ul>
+    <section>
+      <div className="initial-recipe">
+        <img
+          data-testid="recipe-photo"
+          src={ strMealThumb || strDrinkThumb }
+          alt={ strMeal || strDrink }
+          className="img-recipe"
+        />
+        <div className="initial-content">
+          <h1
+            className="title-recipe"
+            data-testid="recipe-title"
+          >
+            {strMeal || strDrink}
+          </h1>
+          <h2 className="type-recipe" data-testid="recipe-category">{strCategory}</h2>
+          {strAlcoholic && <h3>{strAlcoholic}</h3>}
+          <p data-testid="instructions">{strInstructions}</p>
+        </div>
+      </div>
+      <div className="fav_share-btn">
+        <FavoriteButton
+          pathname={ pathname }
+          recipe={ recipe }
+        />
+        <ShareButton url={ url } />
+      </div>
+      <ul className="in_progress-list">
         {ingredients.map(({ number, text }, index) => (
           <li key={ `${number}${text}` } data-testid={ `${index}-ingredient-step` }>
             <label htmlFor={ number }>
@@ -74,8 +86,7 @@ function RecipeInfo({
           </li>
         ))}
       </ul>
-      <p data-testid="instructions">{strInstructions}</p>
-    </div>
+    </section>
   );
 }
 
@@ -93,6 +104,7 @@ RecipeInfo.propTypes = {
   doneSteps: PropType.arrayOf(PropType.string),
   url: PropType.string.isRequired,
   ingredients: PropType.shape({
+    // eslint-disable-next-line react/forbid-prop-types
     ingredients: PropType.arrayOf(PropType.object),
     setIngredients: PropType.func,
   }).isRequired,

@@ -5,6 +5,7 @@ function YoutubeVideo({ video }) {
   return (
     <iframe
       data-testid="video"
+      className="yt-video"
       src={ video.replace('watch?v=', 'embed/') }
       title="video"
     />

@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 import fetchFoodOrDrink from '../services/id';
 import RecipeInfo from '../components/RecipeInfo';
 import FinishButton from '../components/FinishButton';
+import '../styles/InProgressRecipes.css';
+import '../styles/RecipeDetails.css';
 
 function InProgressRecipe({
   location: { pathname },
@@ -56,7 +58,7 @@ function InProgressRecipe({
   }, [doneSteps, idDrink, idMeal, key, recipe]);
 
   return (
-    <main>
+    <main className="in-progress recipe-details">
       {shouldRedirect && <Redirect to="/done-recipes" />}
       <RecipeInfo
         recipe={ recipe }

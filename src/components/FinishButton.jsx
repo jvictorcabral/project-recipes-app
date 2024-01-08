@@ -48,14 +48,16 @@ function FinishButton({ recipe, setShouldRedirect, type, doneSteps, ingredients 
   }, [doneSteps.length, ingredients.length]);
 
   return (
-    <button
-      data-testid="finish-recipe-btn"
-      type="button"
-      onClick={ handleClick }
-      disabled={ disableBtn }
-    >
-      Finish Recipe
-    </button>
+    <div className="finish-btn">
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        onClick={ handleClick }
+        disabled={ disableBtn }
+      >
+        Finish Recipe
+      </button>
+    </div>
   );
 }
 
@@ -76,6 +78,7 @@ FinishButton.propTypes = {
   setShouldRedirect: PropType.func.isRequired,
   type: PropType.string.isRequired,
   doneSteps: PropType.arrayOf(PropType.string).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   ingredients: PropType.arrayOf(PropType.object).isRequired,
 };
 

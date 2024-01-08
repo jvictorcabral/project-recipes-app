@@ -23,6 +23,7 @@ function ShareButton({ url }) {
     <>
       <button
         type="button"
+        className="share-btn"
         data-testid="share-btn"
         // onclick criado com ajuda desses links
         // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard

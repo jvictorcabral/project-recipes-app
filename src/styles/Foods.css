@@ -10,7 +10,13 @@ body {
   color: #680715;
   display: flex;
   flex-flow: column;
-  margin: 7%;
+  margin: 14.5px;
+  max-width: 400px;
+}
+
+.recipe-card h2 {
+  font-size: 1.35em;
+  text-align: center;
 }
 
 .recipe-card img {
@@ -22,5 +28,50 @@ body {
 .section-foods {
   display: grid;
   grid-template-columns: 50% 50%;
-  margin-top: 5%;
+  margin: 5% 0 15%;
+}
+
+@media ( min-width : 640px ) {
+
+  .recipe-card {
+    margin: 18px;
+  }
+
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .section-foods {
+    grid-template-columns: 33% 33% 33%;
+    margin: 5% 0 10%;
+  }
+
+  .recipe-card h2 {
+    font-size: 2em;
+  }
+}
+
+@media screen and ( min-width : 1024px ) {
+
+  .section-foods {
+    margin: 5% 0;
+  }
+
+  .recipe-card {
+    margin: 40px;
+  }
+
+}
+
+@media screen and ( min-width : 1280px ) {
+
+  .section-foods {
+    grid-template-columns: 25% 25% 25% 25%;
+    margin: 5% 0 4%;
+  }
+
+  .recipe-card {
+    margin: 20px;
+  }
+
 }

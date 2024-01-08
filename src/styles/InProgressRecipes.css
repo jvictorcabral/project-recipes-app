@@ -1,0 +1,29 @@
+.in-progress {
+  min-height: 100vh;
+}
+
+.in_progress-list {
+  list-style: none;
+}
+
+.in_progress-list label input {
+  margin: 10px;
+
+}
+
+.finish-btn button {
+  background-color: #91091e;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 7.5px 0;
+  width: 100%;
+}
+
+.finish-btn button:disabled {
+  background-color: #ccc;
+  border: 1px solid #999;
+  color: #666;
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import '../styles/Profile.css';
 
 function Profile({ history }) {
   const [user, setUser] = useState('');
@@ -29,32 +30,34 @@ function Profile({ history }) {
   }, []);
 
   return (
-    <main>
+    <main className="profile">
       <Header title="Profile" />
       <h2 data-testid="profile-email">
         {user.email}
       </h2>
-      <button
-        type="button"
-        data-testid="profile-done-btn"
-        onClick={ () => history.push('/done-recipes') }
-      >
-        Done Recipes
-      </button>
-      <button
-        type="button"
-        data-testid="profile-favorite-btn"
-        onClick={ () => history.push('/favorite-recipes') }
-      >
-        Favorite Recipes
-      </button>
-      <button
-        type="button"
-        data-testid="profile-logout-btn"
-        onClick={ removeProfile }
-      >
-        Logout
-      </button>
+      <div className="profile-btn">
+        <button
+          type="button"
+          data-testid="profile-done-btn"
+          onClick={ () => history.push('/done-recipes') }
+        >
+          Done Recipes
+        </button>
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
+          onClick={ () => history.push('/favorite-recipes') }
+        >
+          Favorite Recipes
+        </button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ removeProfile }
+        >
+          Logout
+        </button>
+      </div>
       <Footer history={ history } />
     </main>
   );
