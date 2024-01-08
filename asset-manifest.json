@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/project-recipes-app/static/css/main.eaf253c7.css",
-    "main.js": "/project-recipes-app/static/js/main.efbe857d.js",
+    "main.css": "/project-recipes-app/static/css/main.f155b919.css",
+    "main.js": "/project-recipes-app/static/js/main.cb791b13.js",
     "static/media/exploreIcon.svg": "/project-recipes-app/static/media/exploreIcon.076346236f69318885d7f53b65f0e4c7.svg",
     "static/media/mealIcon.svg": "/project-recipes-app/static/media/mealIcon.40029e7f1422ba5a1bf1c10fa4f59030.svg",
     "static/media/shareIcon.svg": "/project-recipes-app/static/media/shareIcon.87def1bd1dff9af9263f046c3b9bd31a.svg",
@@ -11,11 +11,11 @@
     "static/media/blackHeartIcon.svg": "/project-recipes-app/static/media/blackHeartIcon.083cb006913d197c95857ebfa2161db7.svg",
     "static/media/drinkIcon.svg": "/project-recipes-app/static/media/drinkIcon.efc0d3c156e5da73e44a826c8d67b142.svg",
     "index.html": "/project-recipes-app/index.html",
-    "main.eaf253c7.css.map": "/project-recipes-app/static/css/main.eaf253c7.css.map",
-    "main.efbe857d.js.map": "/project-recipes-app/static/js/main.efbe857d.js.map"
+    "main.f155b919.css.map": "/project-recipes-app/static/css/main.f155b919.css.map",
+    "main.cb791b13.js.map": "/project-recipes-app/static/js/main.cb791b13.js.map"
   },
   "entrypoints": [
-    "static/css/main.eaf253c7.css",
-    "static/js/main.efbe857d.js"
+    "static/css/main.f155b919.css",
+    "static/js/main.cb791b13.js"
   ]
 }
