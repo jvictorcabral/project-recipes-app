@@ -8,7 +8,6 @@ import '../styles/exploreDrink.css';
 function ExploreDrinks({ history }) {
   const getRandomDrink = async () => {
     const id = await fetchRandomDrink();
-    console.log(id);
     history.push(`/drinks/${id}`);
   };
 

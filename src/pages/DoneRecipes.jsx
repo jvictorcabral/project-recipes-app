@@ -19,7 +19,6 @@ function DoneRecipes() {
   function filterAll() {
     setFilterAllFoods(true);
     setFilterAllDrinks(true);
-    console.log(doneRecipesArr);
   }
 
   function filterFoods() {

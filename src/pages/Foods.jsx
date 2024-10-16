@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CategoryFilters from '../components/CategoryFilters';
@@ -61,6 +61,7 @@ function Foods({ location: { pathname }, history, ingredient, resetIngredient })
         handleClick={ selectCategory }
         categoryFilter={ categoryFilter }
       />
+      { console.log(meals) }
       <section className="section-foods">
         {meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
           <Link to={ `${pathname}/${idMeal}` } key={ idMeal }>
@@ -81,13 +82,13 @@ function Foods({ location: { pathname }, history, ingredient, resetIngredient })
 }
 
 Foods.propTypes = {
-  location: PropType.shape({
-    pathname: PropType.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }).isRequired,
-  ingredient: PropType.string.isRequired,
-  resetIngredient: PropType.func.isRequired,
-  history: PropType.shape({
-    push: PropType.func.isRequired }).isRequired,
+  ingredient: PropTypes.string.isRequired,
+  resetIngredient: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired }).isRequired,
 };
 
 const mapStateToProps = ({ ingredient }) => ({

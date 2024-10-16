@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CategoryFilters from '../components/CategoryFilters';
@@ -37,7 +37,8 @@ function Drinks({ location: { pathname }, history, ingredient, resetIngredient }
     if (categoryFilter !== '') {
       const filterByCategory = async () => {
         const results = await fetchByCategory(pathname, categoryFilter);
-        setDrinks(results.drinks.slice(0, RECIPES_PER_PAGE));
+        setDrinks((results && results.drinks)
+          ? results.drinks.slice(0, RECIPES_PER_PAGE) : []);
       };
       filterByCategory();
     } else if (ingredient !== '') {
@@ -46,11 +47,11 @@ function Drinks({ location: { pathname }, history, ingredient, resetIngredient }
       getDrinks();
     }
 
-    return (() => {
+    return () => {
       if (ingredient !== '') resetIngredient();
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryFilter, pathname]);
+    };
+  }, [categoryFilter, pathname, ingredient,
+    getDrinksByIngredient, getDrinks, resetIngredient]);
 
   return (
     <div>
@@ -61,18 +62,21 @@ function Drinks({ location: { pathname }, history, ingredient, resetIngredient }
         categoryFilter={ categoryFilter }
       />
       <section className="section-foods">
-        {drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
-          <Link to={ `${pathname}/${idDrink}` } key={ idDrink }>
-            <RecipeCard
-              key={ idDrink }
-              img={ strDrinkThumb }
-              name={ strDrink }
-              index={ index }
-              recipeId={ idDrink }
-              pathname={ pathname }
-            />
-          </Link>
-        ))}
+        {Array.isArray(drinks) && drinks.length > 0 ? (
+          drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
+            <Link to={ `${pathname}/${idDrink}` } key={ idDrink }>
+              <RecipeCard
+                img={ strDrinkThumb }
+                name={ strDrink }
+                index={ index }
+                recipeId={ idDrink }
+                pathname={ pathname }
+              />
+            </Link>
+          ))
+        ) : (
+          <p>No drinks available or loading...</p>
+        )}
       </section>
       <Footer history={ history } />
     </div>
@@ -80,13 +84,13 @@ function Drinks({ location: { pathname }, history, ingredient, resetIngredient }
 }
 
 Drinks.propTypes = {
-  location: PropType.shape({
-    pathname: PropType.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }).isRequired,
-  ingredient: PropType.string.isRequired,
-  resetIngredient: PropType.func.isRequired,
-  history: PropType.shape({
-    push: PropType.func.isRequired }).isRequired,
+  ingredient: PropTypes.string.isRequired,
+  resetIngredient: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired }).isRequired,
 };
 
 const mapStateToProps = ({ ingredient }) => ({
